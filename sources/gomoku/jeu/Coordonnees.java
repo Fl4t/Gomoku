@@ -4,8 +4,8 @@ package gomoku.jeu ;
  * deux dimensions. 
  */
 public interface Coordonnees {
-    /** L'abscisse du point */
-    public int abscisse() ;
-    /** L'ordonnée du point */
-    public int ordonnee() ;
+  /** L'abscisse du point */
+  public int abscisse() ;
+  /** L'ordonnée du point */
+  public int ordonnee() ;
 }

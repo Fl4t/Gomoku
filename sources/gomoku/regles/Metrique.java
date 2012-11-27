@@ -8,9 +8,9 @@ import gomoku.jeu.Coordonnees ;
  * distance euclidienne, la distance de von Neumann (ou distance de
  * Manhattan), et la distance de Moore (ou norme max). */
 public interface Metrique {
-    /** La distance entre deux points selon la métrique considérée. 
-     * @param c1 coordonnées du premier point
-     * @param c2 coordonnées du second point
-     * @return la distance entre les deux points */
-    public double distance(Coordonnees c1, Coordonnees c2) ;
+  /** La distance entre deux points selon la métrique considérée. 
+   * @param c1 coordonnées du premier point
+   * @param c2 coordonnées du second point
+   * @return la distance entre les deux points */
+  public double distance(Coordonnees c1, Coordonnees c2) ;
 }

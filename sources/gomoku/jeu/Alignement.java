@@ -7,10 +7,10 @@ package gomoku.jeu ;
  * coordonnées (3,3) et (3,7).
  */
 public interface Alignement {
-    /** une des positions, correspondant au début de l'alignement */
-    public Coordonnees debut() ;
-    /** l'autre position, correspondant à la fin de l'alignement */
-    public Coordonnees fin() ;
-    /** la taille de l'alignement (nombre de pierres) */
-    public int taille() ;
+  /** une des positions, correspondant au début de l'alignement */
+  public Coordonnees debut() ;
+  /** l'autre position, correspondant à la fin de l'alignement */
+  public Coordonnees fin() ;
+  /** la taille de l'alignement (nombre de pierres) */
+  public int taille() ;
 }

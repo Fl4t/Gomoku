@@ -7,8 +7,8 @@ import gomoku.jeu.Coordonnees ;
  * distance entre deux points par le plus grand écart entre leurs
  * coordonnées). */
 public class Moore implements Metrique {
-    public double distance(Coordonnees c1, Coordonnees c2) {
-	return Math.max(Math.abs(c1.abscisse() - c2.abscisse()), 
-			Math.abs(c1.ordonnee() - c2.ordonnee())) ;
-    }
+  public double distance(Coordonnees c1, Coordonnees c2) {
+    return Math.max(Math.abs(c1.abscisse() - c2.abscisse()),
+        Math.abs(c1.ordonnee() - c2.ordonnee())) ;
+  }
 }
