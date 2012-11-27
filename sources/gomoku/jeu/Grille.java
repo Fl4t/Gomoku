@@ -1,23 +1,41 @@
 package gomoku.jeu ;
 
 import java.util.Set ;
+import gomoku.regles.*;
 
 /**
- * Cette classe implémente l'interface plateau
+ * Cette classe implémente l'interface Plateau
  */
 public class Grille implements Plateau {
 
-public interface Plateau {
-  /** Largeur du plateau */
-  public int largeur() ;
+  int jeu[][];
+  Variante laVariante;
 
-  /** Hauteur du plateau */
-  public int hauteur() ;
+  public Grille(Variante jeu) {
+    jeu = new int[this.largeur][this.hauteur];
+    for (int i = 0; i < this.largeur; i++) {
+      for (int i = 0; i < this.largeur; i++) {
+        jeu[i][j] = Joueur.VIDE;
+      }
+    }
+  }
+
+  /** Largeur du jeu */
+  public int largeur() {
+    return laVariante.largeur();
+  }
+
+  /** Hauteur du jeu */
+  public int hauteur() {
+    return laVariante.hauteur();
+  }
 
   /** Donne la couleur de la pierre située à la position spécifiée.
    * @param c coordonnées de la position à tester
    * @return Joueur.NOIR, Joueur.BLANC ou Joueur.VIDE */
-  public int contenu(Coordonnees c) ;
+  public int contenu(Coordonnees c) {
+    return jeu[c.abscisse()][c.ordonnee()];
+  }
 
   /** Place une pierre de la couleur spécifiée à la position
    * indiquée. Ne fait rien si les coordonnées sont incorrectes.
@@ -25,14 +43,18 @@ public interface Plateau {
    * @param couleur couleur de la pierre (Joueur.NOIR ou
    * Joueur.BLANC ; on peut aussi utiliser Joueur.VIDE pour
    * supprimer une pierre) */
-  public void placer(Coordonnees c, int couleur) ;
+  public void placer(Coordonnees c, int couleur) {
+
+  }
 
   /** Calcule les positions voisines de la position spécifiée,
    * jusqu'à la distance spécifiée
    * @param c coordonnées de la position dont on veut calculer les voisines
    * @param dist distance maximale pour calculer le voisinage
    * @return l'ensemble des coordonnées des positions voisines */
-  public Set<Coordonnees> voisins(Coordonnees c, int dist) ;
+  public Set<Coordonnees> voisins(Coordonnees c, int dist) {
+    return null;
+  }
 
   /** Calcule, pour le joueur de la couleur spécifiée, l'ensemble
    * des alignements de pierres de ce joueur qui ont
@@ -40,14 +62,16 @@ public interface Plateau {
    * @param couleur la couleur des pierres à tester
    * @param taille le nombre de pierres qui doivent être alignées
    * @return l'ensemble des alignements touvés */
-  public Set<Alignement> rechercherAlignements(int couleur, int taille) ;
+  public Set<Alignement> rechercherAlignements(int couleur, int taille) {
+    return null;
+  }
 
   /** Calcule, pour le joueur de la couleur spécifiée, l'ensemble
    * des positions où il est autorisé à jouer.
    * @param couleur la couleur du joueur
    * @return un ensemble de cases libres où le joueur peut poser une
    * pierre */
-  public Set<Coordonnees> casesJouables(int couleur) ;
-}
-
+  public Set<Coordonnees> casesJouables(int couleur) {
+    return null;
+  }
 }
