@@ -54,12 +54,12 @@ public class Grille implements Plateau {
    * @param dist distance maximale pour calculer le voisinage
    * @return l'ensemble des coordonnées des positions voisines */
   public Set<Coordonnees> voisins(Coordonnees c, int dist) {
-    Set<Coordonnees> coorPosibles = new HashSet<Coordonnees>();
+    Set<Coordonnees> coorVoisines = new HashSet<Coordonnees>();
     for (int i = c.abscisse() - dist; i < c.abscisse() + dist; i++)
       for (int j = c.ordonnee() - dist; j < c.abscisse() + dist; j++)
         if ((i >= 0 && i < this.largeur) && (j >= 0 && j < this.hauteur))
-          coorPosibles.add(new CoordonneesPoint(i, j));
-    return coorPosibles;
+          coorVoisines.add(new CoordonneesPoint(i, j));
+    return coorVoisines;
   }
 
   /** Calcule, pour le joueur de la couleur spécifiée, l'ensemble
