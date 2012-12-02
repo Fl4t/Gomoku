@@ -1,33 +1,39 @@
-package gomoku.jeu ;
+package gomoku.jeu;
 
-import java.util.Set ;
-import gomoku.regles.*;
+import java.util.Set;
+import java.util.HashSet;
+import gomoku.regles.Variante;
 
 /**
  * Cette classe implémente l'interface Plateau
  */
 public class Grille implements Plateau {
 
-  int jeu[][];
-  Variante laVariante;
+  private int jeu[][];
+  private int largeur;
+  private int hauteur;
 
   public Grille(Variante jeu) {
-    jeu = new int[this.largeur][this.hauteur];
-    for (int i = 0; i < this.largeur; i++) {
-      for (int i = 0; i < this.largeur; i++) {
-        jeu[i][j] = Joueur.VIDE;
-      }
-    }
+    this.largeur = jeu.largeur();
+    this.hauteur = jeu.hauteur();
+    this.jeu = new int[this.largeur][this.hauteur];
+    this.initialisation();
+  }
+
+  public void initialisation() {
+    for (int i = 0; i < this.largeur; i++)
+      for (int j = 0; i < this.hauteur; j++)
+        this.placer(new CoordonneesPoint(i, j), Joueur.VIDE);
   }
 
   /** Largeur du jeu */
   public int largeur() {
-    return laVariante.largeur();
+    return this.largeur();
   }
 
   /** Hauteur du jeu */
   public int hauteur() {
-    return laVariante.hauteur();
+    return this.hauteur();
   }
 
   /** Donne la couleur de la pierre située à la position spécifiée.
@@ -44,7 +50,9 @@ public class Grille implements Plateau {
    * Joueur.BLANC ; on peut aussi utiliser Joueur.VIDE pour
    * supprimer une pierre) */
   public void placer(Coordonnees c, int couleur) {
-
+    if ((c.abscisse() <= this.largeur()) &&
+        (c.ordonnee() <= this.hauteur()))
+    jeu[c.abscisse()][c.ordonnee()] = couleur;
   }
 
   /** Calcule les positions voisines de la position spécifiée,
@@ -53,6 +61,8 @@ public class Grille implements Plateau {
    * @param dist distance maximale pour calculer le voisinage
    * @return l'ensemble des coordonnées des positions voisines */
   public Set<Coordonnees> voisins(Coordonnees c, int dist) {
+    Set<Coordonnees> coorPosibles = new HashSet<Coordonnees>();
+    //for (int i = c.abscisse() ; ; )
     return null;
   }
 
@@ -63,6 +73,7 @@ public class Grille implements Plateau {
    * @param taille le nombre de pierres qui doivent être alignées
    * @return l'ensemble des alignements touvés */
   public Set<Alignement> rechercherAlignements(int couleur, int taille) {
+    Set<Alignement> alignTrouvees = new HashSet<Alignement>();
     return null;
   }
 
@@ -72,6 +83,15 @@ public class Grille implements Plateau {
    * @return un ensemble de cases libres où le joueur peut poser une
    * pierre */
   public Set<Coordonnees> casesJouables(int couleur) {
+    Set<Coordonnees> coorPosibles = new HashSet<Coordonnees>();
     return null;
+  }
+
+  public String toString() {
+    String ret = "";
+    for (int i = 0; i < this.largeur(); i++)
+      for (int j = 0; j < this.hauteur(); j++)
+        ret += "" + this.jeu[i][j];
+    return ret;
   }
 }
