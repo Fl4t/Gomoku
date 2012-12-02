@@ -2,6 +2,7 @@ package gomoku.jeu;
 
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Iterator;
 import gomoku.regles.Variante;
 
 /**
@@ -79,8 +80,18 @@ public class Grille implements Plateau {
    * @return un ensemble de cases libres où le joueur peut poser une
    * pierre */
   public Set<Coordonnees> casesJouables(int couleur) {
-    Set<Coordonnees> coorPosibles = new HashSet<Coordonnees>();
-    return null;
+    int contenuCouleur;
+    Set<Coordonnees> coorJouables = new HashSet<Coordonnees>();
+    for (int x = 0; x < this.largeur; x++)
+      for (int y = 0; y < this.hauteur; y++)
+        if (this.contenu(new CoordonneesPoint(x, y)) == couleur) {
+          Set<Coordonnees> coorVoisines = this.voisins(new CoordonneesPoint(x, y), couleur);
+          Iterator it = coorVoisines.iterator();
+          while (it.hasNext())
+            if (this.contenu(new CoordonneesPoint(x, y)) == Joueur.VIDE)
+              coorJouables.add(new CoordonneesPoint(x, y));
+        }
+    return coorJouables;
   }
 
   /**
