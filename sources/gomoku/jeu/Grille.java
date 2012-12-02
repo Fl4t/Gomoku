@@ -80,11 +80,23 @@ public class Grille implements Plateau {
     return null;
   }
 
+  /**
+   * @override
+   * Methode toString.
+   * Affiche le tableau dans la console
+   */
   public String toString() {
     String ret = "";
-    for (int i = 0; i < this.largeur(); i++)
-      for (int j = 0; j < this.hauteur(); j++)
-        ret += "" + this.jeu[i][j];
+    for (int i = 0; i < this.largeur(); i++) {
+      ret += " ----------------------------------------" +
+        "-------------------------------------\n";
+      for (int j = 0; j < this.hauteur(); j++) {
+        ret += " | " + this.jeu[i][j];
+      }
+      ret +=  " | \n";
+    }
+    ret += " ----------------------------------------" +
+      "-------------------------------------\n";
     return ret;
   }
 }
