@@ -11,12 +11,12 @@ public class CoordonneesPoint implements Coordonnees {
     this.ord = y;
   }
 
-  public int abscisse () {
+  public int abscisse() {
     return this.abs;
   }
 
-  public int ordonnee () {
+  public int ordonnee() {
     return this.ord;
   }
-	
+
 }

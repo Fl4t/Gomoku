@@ -28,12 +28,12 @@ public class Grille implements Plateau {
 
   /** Largeur du jeu */
   public int largeur() {
-    return this.largeur();
+    return this.largeur;
   }
 
   /** Hauteur du jeu */
   public int hauteur() {
-    return this.hauteur();
+    return this.hauteur;
   }
 
   /** Donne la couleur de la pierre située à la position spécifiée.
@@ -50,8 +50,8 @@ public class Grille implements Plateau {
    * Joueur.BLANC ; on peut aussi utiliser Joueur.VIDE pour
    * supprimer une pierre) */
   public void placer(Coordonnees c, int couleur) {
-    if ((c.abscisse() <= this.largeur()) &&
-        (c.ordonnee() <= this.hauteur()))
+    if (c.abscisse() < this.largeur &&
+        c.ordonnee() < this.hauteur)
     jeu[c.abscisse()][c.ordonnee()] = couleur;
   }
 
