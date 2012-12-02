@@ -3,8 +3,8 @@ package gomoku.jeu ;
 /** Implémentation de l'interface coordonnées */
 public class CoordonneesPoint implements Coordonnees {
 
-  //coordonnées point
-  private abs, ord;
+  private int abs;
+  private int ord;
 
   public CoordonneesPoint(int x, int y) {
     this.abs = x;
