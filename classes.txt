@@ -1,3 +1,4 @@
+./sources/gomoku/cli/GomokuCLI.java
 ./sources/gomoku/jeu/Alignement.java
 ./sources/gomoku/jeu/Coordonnees.java
 ./sources/gomoku/jeu/CoordonneesPoint.java
