@@ -17,13 +17,6 @@ public class Grille implements Plateau {
     this.largeur = jeu.largeur();
     this.hauteur = jeu.hauteur();
     this.jeu = new int[this.largeur][this.hauteur];
-    this.initialisation();
-  }
-
-  public void initialisation() {
-    for (int i = 0; i < this.largeur; i++)
-      for (int j = 0; i < this.hauteur; j++)
-        this.placer(new CoordonneesPoint(i, j), Joueur.VIDE);
   }
 
   /** Largeur du jeu */
