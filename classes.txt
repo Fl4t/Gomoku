@@ -5,6 +5,7 @@
 ./sources/gomoku/jeu/Grille.java
 ./sources/gomoku/jeu/Joueur.java
 ./sources/gomoku/jeu/NouveauJoueur.java
+./sources/gomoku/jeu/Partie.java
 ./sources/gomoku/jeu/Plateau.java
 ./sources/gomoku/regles/Gomoku.java
 ./sources/gomoku/regles/Metrique.java
