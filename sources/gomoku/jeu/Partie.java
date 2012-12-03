@@ -8,14 +8,14 @@ import java.io.IOException;
 
 public class Partie {
 
-  private NouveauJoueur jNoir;
-  private NouveauJoueur jBlanc;
+  private JoueurHumain jNoir;
+  private JoueurHumain jBlanc;
   private Plateau p;
   private boolean premierCoup = true;
   private int doisJouer;
   private int gagnant;
 
-  public Partie(NouveauJoueur jNoir, NouveauJoueur jBlanc, Plateau p) {
+  public Partie(JoueurHumain jNoir, JoueurHumain jBlanc, Plateau p) {
     this.jNoir = jNoir;
     this.jBlanc = jBlanc;
     this.p = p;

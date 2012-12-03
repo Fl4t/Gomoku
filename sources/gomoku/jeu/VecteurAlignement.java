@@ -2,12 +2,12 @@ package gomoku.jeu;
 
 import gomoku.regles.Variante;
 
-public class AlignementImplements implements Alignement {
-	
+public class VecteurAlignement implements Alignement {
+
 	Coordonnees debut, fin;
 	Variante v;
 
-	public AlignementImplements (Coordonnees coord1, Coordonnees coord2, Variante v) {
+	public VecteurAlignement(Coordonnees coord1, Coordonnees coord2, Variante v) {
 		this.debut = coord1;
 		this.fin = coord2;
 		this.v = v;
@@ -22,5 +22,8 @@ public class AlignementImplements implements Alignement {
   		return this.fin;
   	}
   	/** la taille de l'alignement (nombre de pierres) */
-  	public int taille() ;
+    // TODO
+  	public int taille() {
+      return 0;
+  	}
 }

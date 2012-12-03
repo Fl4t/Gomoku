@@ -1,6 +1,6 @@
 package gomoku.jeu;
 
-public class NouveauJoueur implements Joueur {
+public class JoueurHumain implements Joueur {
 
   /**
    * couleur attribué au joueur
@@ -8,7 +8,7 @@ public class NouveauJoueur implements Joueur {
 	private int couleur;
   private int nbCoups;
 
-  public NouveauJoueur (int c) {
+  public JoueurHumain (int c) {
     this.couleur = c;
     this.nbCoups = 60;
   }

@@ -59,7 +59,7 @@ public class Grille implements Plateau {
     for (int i = c.abscisse() - dist; i < c.abscisse() + dist; i++)
       for (int j = c.ordonnee() - dist; j < c.abscisse() + dist; j++)
         if ((i >= 0 && i < this.largeur) && (j >= 0 && j < this.hauteur))
-          coorVoisines.add(new CoordonneesPoint(i, j));
+          coorVoisines.add(new PierreCoordonnees(i, j));
     return coorVoisines;
   }
 
@@ -84,12 +84,12 @@ public class Grille implements Plateau {
     Set<Coordonnees> coorJouables = new HashSet<Coordonnees>();
     for (int x = 0; x < this.largeur; x++)
       for (int y = 0; y < this.hauteur; y++)
-        if (this.contenu(new CoordonneesPoint(x, y)) == couleur) {
-          Set<Coordonnees> coorVoisines = this.voisins(new CoordonneesPoint(x, y), couleur);
+        if (this.contenu(new PierreCoordonnees(x, y)) == couleur) {
+          Set<Coordonnees> coorVoisines = this.voisins(new PierreCoordonnees(x, y), couleur);
           Iterator it = coorVoisines.iterator();
           while (it.hasNext())
-            if (this.contenu(new CoordonneesPoint(x, y)) == Joueur.VIDE)
-              coorJouables.add(new CoordonneesPoint(x, y));
+            if (this.contenu(new PierreCoordonnees(x, y)) == Joueur.VIDE)
+              coorJouables.add(new PierreCoordonnees(x, y));
         }
     return coorJouables;
   }
