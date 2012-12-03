@@ -101,11 +101,11 @@ public class Grille implements Plateau {
    */
   public String toString() {
     String ret = "";
-    for (int i = 0; i < this.largeur(); i++) {
+    for (int x = 0; x < this.largeur(); x++) {
       ret += " ----------------------------------------" +
         "-------------------------------------\n";
-      for (int j = 0; j < this.hauteur(); j++) {
-        ret += " | " + this.jeu[i][j];
+      for (int y = 0; y < this.hauteur(); y++) {
+        ret += " | " + this.jeu[x][y];
       }
       ret +=  " | \n";
     }
