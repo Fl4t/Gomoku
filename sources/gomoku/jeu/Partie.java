@@ -30,7 +30,6 @@ public class Partie {
     return false;
   }
 
-  // TODO : Bug
   public Coordonnees demanderCoor() {
     if (this.premierCoup())
       return this.demanderCoorJoueur(Joueur.NOIR);
@@ -44,6 +43,7 @@ public class Partie {
   private boolean premierCoup() {
     if (this.premierCoup) {
       this.premierCoup = false;
+      this.doisJouer = Joueur.NOIR;
       return true;
     }
     return this.premierCoup;
