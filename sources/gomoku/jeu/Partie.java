@@ -5,6 +5,7 @@ import java.util.Scanner;
 import gomoku.regles.Variante;
 import gomoku.jeu.Plateau;
 import java.io.IOException;
+import gomoku.jeu.PierreCoordonnees;
 
 public class Partie {
 
@@ -56,7 +57,7 @@ public class Partie {
     int coorX = sc.nextInt();
     System.out.println("Saisir la coordonnée y : ");
     int coorY = sc.nextInt();
-    return new CoordonneesPoint(coorX, coorY);
+    return new PierreCoordonnees(coorX, coorY);
   }
 
   private boolean aLaMain(int couleur) {
