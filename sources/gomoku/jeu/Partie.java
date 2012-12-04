@@ -33,12 +33,12 @@ public class Partie {
   // TODO : Bug
   public Coordonnees demanderCoor() {
     if (this.premierCoup())
-      return this.demanderCoor(Joueur.NOIR);
+      return this.demanderCoorJoueur(Joueur.NOIR);
     else
       if (this.aLaMain(Joueur.BLANC))
-        return this.demanderCoor(Joueur.BLANC);
+        return this.demanderCoorJoueur(Joueur.BLANC);
       else
-        return this.demanderCoor(Joueur.NOIR);
+        return this.demanderCoorJoueur(Joueur.NOIR);
   }
 
   private boolean premierCoup() {
@@ -49,7 +49,7 @@ public class Partie {
     return this.premierCoup;
   }
 
-  public Coordonnees demanderCoor(int couleur) {
+  public Coordonnees demanderCoorJoueur(int couleur) {
     String str = couleur == Joueur.NOIR ? "NOIR" : "BLANC";
     Scanner sc = new Scanner(System.in);
     System.out.println("\nJoueur " + str + "\n");
