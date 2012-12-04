@@ -13,8 +13,10 @@ public class Grille implements Plateau {
   private int jeu[][];
   private int largeur;
   private int hauteur;
+  private Variante jeu;
 
   public Grille(Variante jeu) {
+    this.jeu = jeu;
     this.largeur = jeu.largeur();
     this.hauteur = jeu.hauteur();
     this.jeu = new int[this.largeur][this.hauteur];
@@ -71,7 +73,72 @@ public class Grille implements Plateau {
    * @return l'ensemble des alignements touvés */
   public Set<Alignement> rechercherAlignements(int couleur, int taille) {
     Set<Alignement> alignTrouvees = new HashSet<Alignement>();
-    return null;
+    Set<Alignement> alignV = this.rechercherAlignementsVertical(couleur, taille);
+    Set<Alignement> alignHorizontal = this.rechercherAlignementsHorizontal(couleur, taille);
+    Set<Alignement> alignDiagonaleDes = this.rechercherAlignementsDiagonaleDes(couleur, taille);
+    Set<Alignement> alignDiagonaleAsc = this.rechercherAlignementsDiagonaleAsc(couleur, taille);
+  }
+
+  public Set<Alignement> rechercherAlignementsVertical(int couleur, int taille) {
+    int yDebut = 0;
+    int cpt = 0;
+    Set<Alignement> alignV = new HashSet<Alignement>();
+    for (int x = 0; x < this.largeur; x++) {
+      cpt = 0;
+      for (int y = 0; y < this.hauteur; y++) {
+        if (this.contenu(New PierreCoordonnees(x, y), couleur)) {
+          yDebut = y;
+          cpt++;
+        } else {
+          cpt = 0;
+        }
+      }
+      if (cpt == taille) {
+        alignTrouvees.add(new VecteurAlignement(new PierreCoordonnees(x, yDebut)),
+              new VecteurAlignement(new PierreCoordonnees(x, yDebut + cpt)),
+                          this.jeu);
+      }
+    }
+    return alignV;
+  }
+
+  public Set<Alignement> rechercherAlignementsHorizontal(int couleur, int taille) {
+    int xDebut = 0;
+    int cpt = 0;
+    Set<Alignement> alignTrouvees = new HashSet<Alignement>();
+    for (int y = 0; y < this.hauteur; y++) {
+      cpt = 0;
+      for (int x = 0; x < this.largeur; x++) {
+        if (this.contenu(new PierreCoordonnees(x, y), couleur)) {
+          xDebut = x;
+          cpt++;
+        } else {
+          cpt = 0;
+        }
+      }
+      if (cpt == taille) {
+        alignTrouvees.add(new VecteurAlignement(new PierreCoordonnees(xDebut, y)),
+                          new VecteurAlignement(new PierreCoordonnees(x, y)),
+                          this.jeu);
+      }
+    }
+    return alignTrouvees;
+  }
+
+  // TODO
+  public Set<Alignement> rechercherAlignementsDiagonalFacile(int couleur, int taille) {
+    // parcourt de la premiere moitié
+    for (int i = 0; i < this.largeur; i++)
+      for (int j = 0; j < i+1; j++)
+        this.contenu(new PierreCoordonnees(i-j, j), couleur);
+    // parcourt de la deuxieme moitié
+    for ( int j = 1; j < this.largeur; j++)
+      for ( int i = this.largeur-1 ; i > j; i--)
+        this.contenu(new PierreCoordonnees(i, this.largeur - i), couleur);
+  }
+
+  // TODO
+  public Set<Alignement> rechercherAlignementsDiagonalDifficile(int couleur, int taille) {
   }
 
   /** Calcule, pour le joueur de la couleur spécifiée, l'ensemble

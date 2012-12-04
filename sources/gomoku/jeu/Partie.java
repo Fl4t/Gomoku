@@ -82,7 +82,13 @@ public class Partie {
     System.out.println(p);
   }
 
-  // TODO
+  /*
+   * Méthode estGagne.
+   * Methode retournant un booléen lorsque la partie 
+   * est gagné par l'un des joueurs.
+   * Une partie est gagné lorsque :
+   *
+   */
   public boolean estGagne() {
     return true;
   }
