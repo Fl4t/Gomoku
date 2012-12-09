@@ -22,8 +22,7 @@ public class VecteurAlignement implements Alignement {
   		return this.fin;
   	}
   	/** la taille de l'alignement (nombre de pierres) */
-    // TODO
   	public int taille() {
-      return 0;
+      return v.verifAlignement().tailleMin();
   	}
 }
