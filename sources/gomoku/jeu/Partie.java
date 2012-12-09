@@ -1,9 +1,14 @@
 package gomoku.jeu;
 
 import java.lang.Integer;
+import java.util.Set;
 import java.util.Scanner;
+import java.util.Iterator;
 import gomoku.regles.Variante;
+import gomoku.regles.RegleCoup;
+import gomoku.regles.RegleAlignement;
 import gomoku.jeu.Plateau;
+import gomoku.jeu.Grille;
 import java.io.IOException;
 import gomoku.jeu.PierreCoordonnees;
 
@@ -11,15 +16,15 @@ public class Partie {
 
   private JoueurHumain jNoir;
   private JoueurHumain jBlanc;
-  private Plateau p;
+  private Plateau plateau;
   private boolean premierCoup = true;
   private int doisJouer;
   private int gagnant;
 
-  public Partie(JoueurHumain jNoir, JoueurHumain jBlanc, Plateau p) {
+  public Partie(JoueurHumain jNoir, JoueurHumain jBlanc, Plateau plateau) {
     this.jNoir = jNoir;
     this.jBlanc = jBlanc;
-    this.p = p;
+    this.plateau = plateau;
   }
 
   public boolean coupAjouer() {
@@ -31,13 +36,16 @@ public class Partie {
   }
 
   public Coordonnees demanderCoor() {
-    if (this.premierCoup())
-      return this.demanderCoorJoueur(Joueur.NOIR);
-    else
+    Coordonnees coor = null;
+    if (this.premierCoup()) {
+      coor = this.demanderCoorJoueur(Joueur.NOIR);
+      plateau.placer(coor, Joueur.NOIR);
+    } else
       if (this.aLaMain(Joueur.BLANC))
-        return this.demanderCoorJoueur(Joueur.BLANC);
+        coor = this.demanderCoorJoueur(Joueur.BLANC);
       else
-        return this.demanderCoorJoueur(Joueur.NOIR);
+        coor = this.demanderCoorJoueur(Joueur.NOIR);
+    return coor;
   }
 
   private boolean premierCoup() {
@@ -50,7 +58,7 @@ public class Partie {
   }
 
   public Coordonnees demanderCoorJoueur(int couleur) {
-    String str = couleur == Joueur.NOIR ? "NOIR" : "BLANC";
+    String str = this.couleurIntToString(couleur);
     Scanner sc = new Scanner(System.in);
     System.out.println("\nJoueur " + str + "\n");
     System.out.println("Saisir la coordonnée x : ");
@@ -60,14 +68,20 @@ public class Partie {
     return new PierreCoordonnees(coorX, coorY);
   }
 
+  public String couleurIntToString(int couleur) {
+    return couleur == Joueur.NOIR ? "NOIR" : "BLANC";
+  }
+
   private boolean aLaMain(int couleur) {
     return couleur == this.doisJouer ? true : false;
   }
 
   public void placerPierreAuxCoor(Coordonnees c) {
+    Variante v = ((Grille)plateau).getVariante();
+    RegleCoup r = v.verifCoup();
     int couleur = this.doisJouer;
-    if (p.contenu(c) == Joueur.VIDE) {
-      p.placer(c, couleur);
+    if (r.estValide(c, plateau)) {
+      plateau.placer(c, couleur);
       this.donnerLaMain();
     } else {
       System.out.println("Vous ne pouvez pas placer ici.\n");
@@ -79,23 +93,34 @@ public class Partie {
   }
 
   public void rafraichirGrille() {
-    System.out.println(p);
+    System.out.println(plateau);
   }
 
   /*
    * Méthode estGagne.
-   * Methode retournant un booléen lorsque la partie 
+   * Methode retournant un booléen lorsque la partie
    * est gagné par l'un des joueurs.
    * Une partie est gagné lorsque :
    *
    */
   public boolean estGagne() {
-    return true;
+    boolean gagne;
+    Variante v = ((Grille)this.plateau).getVariante();
+    RegleAlignement regle = v.verifAlignement();
+    Set<Alignement> align = plateau.rechercherAlignements(
+        this.aLaMain(Joueur.NOIR) ? Joueur.BLANC : Joueur.NOIR,
+        regle.tailleMin());
+    Iterator<Alignement> it = align.iterator();
+    while (it.hasNext()) {
+      gagne = regle.estGagnant(it.next(), this.plateau);
+      if (gagne)
+        return true;
+    }
+    return false;
   }
 
-  // TODO
-  public int joueurGagnant() {
-    return 1;
+  public String joueurGagnant() {
+    return this.aLaMain(Joueur.NOIR) ? "BLANC" : "NOIR";
   }
 
 }
