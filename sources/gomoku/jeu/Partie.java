@@ -7,54 +7,36 @@ import java.util.Iterator;
 import gomoku.regles.Variante;
 import gomoku.regles.RegleCoup;
 import gomoku.regles.RegleAlignement;
-import gomoku.jeu.Plateau;
 import gomoku.jeu.Grille;
-import java.io.IOException;
+import gomoku.jeu.Plateau;
 import gomoku.jeu.PierreCoordonnees;
 
 public class Partie {
 
   private JoueurHumain jNoir;
   private JoueurHumain jBlanc;
-  private Plateau plateau;
+  private Grille grille;
   private boolean premierCoup = true;
-  private int doisJouer;
+  private int doisJouer = Joueur.NOIR;
   private int gagnant;
 
-  public Partie(JoueurHumain jNoir, JoueurHumain jBlanc, Plateau plateau) {
+  public Partie(JoueurHumain jNoir, JoueurHumain jBlanc, Plateau grille) {
     this.jNoir = jNoir;
     this.jBlanc = jBlanc;
-    this.plateau = plateau;
+    this.grille = grille;
   }
 
   public boolean coupAjouer() {
     while (!(this.jNoir.getNbCoups() == 0
-          && this.jBlanc.getNbCoups() == 0)) {
+          && this.jBlanc.getNbCoups() == 0))
       return true;
-    }
     return false;
   }
 
   public Coordonnees demanderCoor() {
-    Coordonnees coor = null;
-    if (this.premierCoup()) {
-      coor = this.demanderCoorJoueur(Joueur.NOIR);
-      plateau.placer(coor, Joueur.NOIR);
-    } else
-      if (this.aLaMain(Joueur.BLANC))
-        coor = this.demanderCoorJoueur(Joueur.BLANC);
-      else
-        coor = this.demanderCoorJoueur(Joueur.NOIR);
-    return coor;
-  }
-
-  private boolean premierCoup() {
-    if (this.premierCoup) {
-      this.premierCoup = false;
-      this.doisJouer = Joueur.NOIR;
-      return true;
-    }
-    return this.premierCoup;
+      return this.aLaMain(Joueur.BLANC) ?
+        demanderCoorJoueur(Joueur.BLANC) :
+        this.demanderCoorJoueur(Joueur.NOIR);
   }
 
   public Coordonnees demanderCoorJoueur(int couleur) {
@@ -77,23 +59,28 @@ public class Partie {
   }
 
   public void placerPierreAuxCoor(Coordonnees c) {
-    Variante v = ((Grille)plateau).getVariante();
+    Variante v = grille.getVariante();
     RegleCoup r = v.verifCoup();
-    int couleur = this.doisJouer;
-    if (r.estValide(c, plateau)) {
-      plateau.placer(c, couleur);
+    if (this.premierCoup) {
+      this.premierCoup = false;
+      grille.placer(c, this.doisJouer);
       this.donnerLaMain();
-    } else {
+    } else if (r.estValide(c, grille) &&
+        grille.contenu(c) == Joueur.VIDE)
+    {
+      grille.placer(c, this.doisJouer);
+      this.donnerLaMain();
+    } else
       System.out.println("Vous ne pouvez pas placer ici.\n");
-    }
   }
 
   private void donnerLaMain() {
-    this.doisJouer = this.doisJouer == Joueur.NOIR ? Joueur.BLANC : Joueur.NOIR;
+    this.doisJouer = this.aLaMain(Joueur.NOIR) ?
+      Joueur.BLANC : Joueur.NOIR;
   }
 
   public void rafraichirGrille() {
-    System.out.println(plateau);
+    System.out.println(grille);
   }
 
   /*
@@ -104,18 +91,13 @@ public class Partie {
    *
    */
   public boolean estGagne() {
-    boolean gagne;
-    Variante v = ((Grille)this.plateau).getVariante();
+    Variante v = this.grille.getVariante();
     RegleAlignement regle = v.verifAlignement();
-    Set<Alignement> align = plateau.rechercherAlignements(
-        this.aLaMain(Joueur.NOIR) ? Joueur.BLANC : Joueur.NOIR,
+    Set<Alignement> align = grille.rechercherAlignements( this.doisJouer,
         regle.tailleMin());
     Iterator<Alignement> it = align.iterator();
-    while (it.hasNext()) {
-      gagne = regle.estGagnant(it.next(), this.plateau);
-      if (gagne)
-        return true;
-    }
+    while (it.hasNext())
+      if (regle.estGagnant(it.next(), this.grille)) return true;
     return false;
   }
 
