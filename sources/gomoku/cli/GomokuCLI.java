@@ -15,7 +15,8 @@ public class GomokuCLI {
                           new Grille(new Gomoku()));
     while (partie.coupAjouer()) {
       Coordonnees c = partie.demanderCoor();
-      partie.placerPierreAuxCoor(c);
+      if (!partie.placerPierreAuxCoor(c))
+        System.out.println("Vous ne pouvez pas placer ici.");
       partie.rafraichirGrille();
     }
     if (partie.estGagne()) {

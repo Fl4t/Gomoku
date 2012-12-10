@@ -57,20 +57,22 @@ public class Partie {
     return couleur == this.doisJouer ? true : false;
   }
 
-  public void placerPierreAuxCoor(Coordonnees c) {
+  public boolean placerPierreAuxCoor(Coordonnees c) {
     Variante v = ((Grille)grille).getVariante();
     RegleCoup r = v.verifCoup();
     if (this.premierCoup) {
       this.premierCoup = false;
       grille.placer(c, this.doisJouer);
       this.donnerLaMain();
+      return true;
     } else if (r.estValide(c, grille) &&
         grille.contenu(c) == Joueur.VIDE)
     {
       grille.placer(c, this.doisJouer);
       this.donnerLaMain();
-    } else
-      System.out.println("Vous ne pouvez pas placer ici.\n");
+      return true;
+    }
+    return false;
   }
 
   private void donnerLaMain() {
