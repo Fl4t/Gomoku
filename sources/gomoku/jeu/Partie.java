@@ -8,14 +8,13 @@ import gomoku.regles.Variante;
 import gomoku.regles.RegleCoup;
 import gomoku.regles.RegleAlignement;
 import gomoku.jeu.Grille;
-import gomoku.jeu.Plateau;
 import gomoku.jeu.PierreCoordonnees;
 
 public class Partie {
 
   private JoueurHumain jNoir;
   private JoueurHumain jBlanc;
-  private Grille grille;
+  private Plateau grille;
   private boolean premierCoup = true;
   private int doisJouer = Joueur.NOIR;
   private int gagnant;
@@ -59,7 +58,7 @@ public class Partie {
   }
 
   public void placerPierreAuxCoor(Coordonnees c) {
-    Variante v = grille.getVariante();
+    Variante v = ((Grille)grille).getVariante();
     RegleCoup r = v.verifCoup();
     if (this.premierCoup) {
       this.premierCoup = false;
@@ -91,7 +90,7 @@ public class Partie {
    *
    */
   public boolean estGagne() {
-    Variante v = this.grille.getVariante();
+    Variante v = ((Grille)this.grille).getVariante();
     RegleAlignement regle = v.verifAlignement();
     Set<Alignement> align = grille.rechercherAlignements( this.doisJouer,
         regle.tailleMin());
