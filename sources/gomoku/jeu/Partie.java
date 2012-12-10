@@ -7,6 +7,7 @@ import java.util.Iterator;
 import gomoku.regles.Variante;
 import gomoku.regles.RegleCoup;
 import gomoku.regles.RegleAlignement;
+import gomoku.jeu.Plateau;
 import gomoku.jeu.Grille;
 import gomoku.jeu.PierreCoordonnees;
 
@@ -14,15 +15,15 @@ public class Partie {
 
   private JoueurHumain jNoir;
   private JoueurHumain jBlanc;
-  private Plateau grille;
+  private Plateau plateau;
   private boolean premierCoup = true;
   private int doisJouer = Joueur.NOIR;
   private int gagnant;
 
-  public Partie(JoueurHumain jNoir, JoueurHumain jBlanc, Plateau grille) {
+  public Partie(JoueurHumain jNoir, JoueurHumain jBlanc, Plateau plateau) {
     this.jNoir = jNoir;
     this.jBlanc = jBlanc;
-    this.grille = grille;
+    this.plateau = plateau;
   }
 
   public boolean coupAjouer() {
@@ -58,17 +59,17 @@ public class Partie {
   }
 
   public boolean placerPierreAuxCoor(Coordonnees c) {
-    Variante v = ((Grille)grille).getVariante();
+    Variante v = ((Grille)plateau).getVariante();
     RegleCoup r = v.verifCoup();
     if (this.premierCoup) {
       this.premierCoup = false;
-      grille.placer(c, this.doisJouer);
+      plateau.placer(c, this.doisJouer);
       this.donnerLaMain();
       return true;
-    } else if (r.estValide(c, grille) &&
-        grille.contenu(c) == Joueur.VIDE)
+    } else if (r.estValide(c, plateau) &&
+        plateau.contenu(c) == Joueur.VIDE)
     {
-      grille.placer(c, this.doisJouer);
+      plateau.placer(c, this.doisJouer);
       this.donnerLaMain();
       return true;
     }
@@ -81,7 +82,7 @@ public class Partie {
   }
 
   public void rafraichirGrille() {
-    System.out.println(grille);
+    System.out.println(plateau);
   }
 
   /*
@@ -92,13 +93,13 @@ public class Partie {
    *
    */
   public boolean estGagne() {
-    Variante v = ((Grille)this.grille).getVariante();
+    Variante v = ((Grille)this.plateau).getVariante();
     RegleAlignement regle = v.verifAlignement();
-    Set<Alignement> align = grille.rechercherAlignements( this.doisJouer,
+    Set<Alignement> align = plateau.rechercherAlignements( this.doisJouer,
         regle.tailleMin());
     Iterator<Alignement> it = align.iterator();
     while (it.hasNext())
-      if (regle.estGagnant(it.next(), this.grille)) return true;
+      if (regle.estGagnant(it.next(), this.plateau)) return true;
     return false;
   }
 
