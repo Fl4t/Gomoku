@@ -59,8 +59,8 @@ public class Grille implements Plateau {
    * @return l'ensemble des coordonnées des positions voisines */
   public Set<Coordonnees> voisins(Coordonnees c, int dist) {
     Set<Coordonnees> coorVoisines = new HashSet<Coordonnees>();
-    for (int i = c.abscisse() - dist; i < c.abscisse() + dist; i++)
-      for (int j = c.ordonnee() - dist; j < c.abscisse() + dist; j++)
+    for (int i = c.abscisse() - dist; i <= c.abscisse() + dist; i++)
+      for (int j = c.ordonnee() - dist; j <= c.ordonnee() + dist; j++)
         if ((i >= 0 && i < this.largeur) && (j >= 0 && j < this.hauteur))
           coorVoisines.add(new PierreCoordonnees(i, j));
     return coorVoisines;
