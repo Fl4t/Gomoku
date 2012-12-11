@@ -16,8 +16,19 @@ public class MouseClic extends MouseAdapter implements MouseListener{
 	}
  
 	public void mouseClicked(MouseEvent e){
+		// On récupère le plateau de la partie
+		Plateau plateau = partie.getPlateau();
 
-		PierreCoordonnees coordPierre = new PierreCoordonnees(e.getX(),e.getY());
-		partie.placerPierreAuxCoor(coordPierre);
+		// On récupère les dimensions en nombre de cases
+		int largeur = plateau.largeur();
+		int hauteur = plateau.hauteur();
+
+		PierreCoordonnees coordPierre = new PierreCoordonnees(e.getX()/largeur,e.getY()/hauteur);
+		System.out.println(e.getX()/largeur + " " + e.getY()/hauteur);
+
+		if(partie.placerPierreAuxCoor(coordPierre)) {
+			component.repaint();
+		}
+
 	}
 }

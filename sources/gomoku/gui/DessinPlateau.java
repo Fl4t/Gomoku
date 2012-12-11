@@ -10,30 +10,41 @@ import java.awt.event.*;
 public class DessinPlateau extends JPanel {
 
 	private int largeur, hauteur;
+	private Plateau plateau;
 
 	public DessinPlateau(Plateau p) {
+        this.plateau = p;
         this.largeur = p.largeur();
         this.hauteur = p.hauteur();
 
   	}      
        
-	public void paintComponent(Graphics g){
-    	g.drawRect(20, 20, 380, 380);
+	public void paint(Graphics g){
 
-    	for (int i=20;i<=400 ;i+=this.largeur ) {
-    		g.drawLine(i,20,i,400);
+
+    	
+		for(int iX = this.largeur; iX < this.largeur*this.largeur; iX+=40){
+        	for(int iY = this.hauteur; iY < this.hauteur*this.hauteur; iY+=40){          
+                g.setColor(Color.RED);
+            	g.drawRect(iX,iY,40,40);
+    	    }
     	}
 
-    	for (int i=20;i<=400 ;i+=this.hauteur ) {
-    		g.drawLine(20,i,400,i);
-    	} 	
-	}   
-	public int getLargeur(){
-		return this.largeur;
-	}
-	
-	public int getHauteur(){
-		return this.hauteur;
-	}
-	
+        //On parcours le plateau
+        for(int iX = 1; iX<this.largeur; iX++) {
+            for (int iY = 1;iY<this.hauteur ;iY++ ) {
+                // Si l'emplacement contient la couleur NOIR, on dessine une pierre NOIRE
+                if(plateau.contenu(new PierreCoordonnees(iX,iY)) == Joueur.NOIR) {
+                    g.setColor(Color.BLACK);
+                    g.fillRect(iX*this.largeur-5,iY*this.hauteur-5,20,20);
+                    
+                }
+                // Si l'emplacement contien la couleur BLANC, on dessine une pierre BLANCHE
+                if(plateau.contenu(new PierreCoordonnees(iX,iY)) == Joueur.BLANC) {
+                    g.setColor(Color.WHITE);
+                    g.fillRect(iX*this.largeur-5,iY*this.hauteur-5,20,20);
+                }
+            }
+        }
+	}   	
 }
