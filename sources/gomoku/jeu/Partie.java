@@ -35,7 +35,7 @@ public class Partie {
 
   public Coordonnees demanderCoor() {
       return this.aLaMain(Joueur.BLANC) ?
-        demanderCoorJoueur(Joueur.BLANC) :
+        this.demanderCoorJoueur(Joueur.BLANC) :
         this.demanderCoorJoueur(Joueur.NOIR);
   }
 

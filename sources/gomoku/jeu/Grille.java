@@ -237,16 +237,19 @@ public class Grille implements Plateau {
    */
   public String toString() {
     String ret = "";
-    for (int x = 0; x < this.largeur(); x++) {
-      ret += " ----------------------------------------" +
-        "-------------------------------------\n";
-      for (int y = 0; y < this.hauteur(); y++) {
-        ret += " | " + this.jeu[x][y];
+    for (int y = 0; y < this.hauteur(); y++) {
+       ret += "\n";
+      for (int x = 0; x < this.largeur(); x++) {
+        String test = this.jeu[x][y] == 1 ? "B" : "N";
+        if (this.jeu[x][y] == -1)
+          test = "N";
+        else if (this.jeu[x][y] == 1)
+         test = "B";
+        else
+         test = "0";
+        ret += " " + test;
       }
-      ret +=  " | \n";
     }
-    ret += " ----------------------------------------" +
-      "-------------------------------------\n";
     return ret;
   }
 
