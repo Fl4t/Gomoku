@@ -217,17 +217,12 @@ public class Grille implements Plateau {
    * @return un ensemble de cases libres où le joueur peut poser une
    * pierre */
   public Set<Coordonnees> casesJouables(int couleur) {
-    int contenuCouleur;
+    RegleCoup regle = v.verifCoup();
     Set<Coordonnees> coorJouables = new HashSet<Coordonnees>();
     for (int x = 0; x < this.largeur; x++)
       for (int y = 0; y < this.hauteur; y++)
-        if (this.contenu(new PierreCoordonnees(x, y)) == couleur) {
-          Set<Coordonnees> coorVoisines = this.voisins(new PierreCoordonnees(x, y), couleur);
-          Iterator<Coordonnees> it = coorVoisines.iterator();
-          while (it.hasNext())
-            if (this.contenu(new PierreCoordonnees(x, y)) == Joueur.VIDE)
-              coorJouables.add(new PierreCoordonnees(x, y));
-        }
+        if (regle.estValide(new PierreCoordonnees(x, y), this))
+          coorJouables.add(new PierreCoordonnees(x, y));
     return coorJouables;
   }
 
