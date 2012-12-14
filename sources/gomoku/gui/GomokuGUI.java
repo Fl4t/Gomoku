@@ -4,18 +4,18 @@ import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import java.awt.*; 
+import java.awt.*;
 import gomoku.regles.*;
 import gomoku.jeu.*;
- 
-public class Gomokugui extends JFrame {
 
- 
-	public Gomokugui(Partie p) {
+public class GomokuGUI extends JFrame {
+
+
+	public GomokuGUI(Partie p) {
 
    Plateau plateau = p.getPlateau();
 
-    	
+
     	//Définit un titre pour notre fenêtre
     	this.setTitle("Gomoku");
     	//Définit sa taille : 500 pixels de large et 500 pixels de haut
@@ -41,11 +41,11 @@ public class Gomokugui extends JFrame {
       itemQuitter.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent arg0) {
         System.exit(0);
-      }        
+      }
     });
 
       // On ajoute le menu créé précedemment dans la fenêtre
-      menuBar.add(jeu);       
+      menuBar.add(jeu);
       setJMenuBar(menuBar);
 
       // On crée un dessin de type DessinPlateau (JPanel)
@@ -59,17 +59,17 @@ public class Gomokugui extends JFrame {
 
       //Rend la fenêtre visible
       this.setVisible(true);
-  	}   
+  	}
 
-    
+
     public static void main(String[] args) {
-    
+
       JoueurHumain joueur1 = new JoueurHumain(Joueur.NOIR);
       JoueurHumain joueur2 = new JoueurHumain(Joueur.BLANC);
 
       Partie partie = new Partie(joueur1, joueur2, new Grille(new Gomoku()));
 
-      Gomokugui gomoku = new Gomokugui(partie);
+      GomokuGUI gomoku = new GomokuGUI(partie);
   }
 }
 

@@ -4,6 +4,7 @@ import java.lang.Integer;
 import java.util.Set;
 import java.util.Scanner;
 import java.util.Iterator;
+import javax.swing.JComponent;
 import gomoku.regles.Variante;
 import gomoku.regles.RegleCoup;
 import gomoku.regles.RegleAlignement;
@@ -26,9 +27,29 @@ public class Partie {
     this.plateau = plateau;
   }
 
+  public void jouerCLI() {
+    while (this.coupAjouer()) {
+      Coordonnees c = this.demanderCoor();
+      if (!this.placerPierreAuxCoor(c))
+        System.out.println("Vous ne pouvez pas placer ici.");
+      this.rafraichirGrille();
+    }
+    if (this.estGagne())
+      System.out.println("félicitation joueur " +
+          this.joueurGagnant());
+    else
+      System.out.println("Partie nulle !");
+  }
+
+  public void jouerGUI(JComponent component, Coordonnees c) {
+    if (this.coupAjouer())
+      if(this.placerPierreAuxCoor(c))
+        component.repaint();
+  }
+
   public boolean coupAjouer() {
-    while (!(this.jNoir.getNbCoups() == 0
-          && this.jBlanc.getNbCoups() == 0))
+    if (!(this.jNoir.getNbCoups() == 0
+        && this.jBlanc.getNbCoups() == 0))
       return true;
     return false;
   }
@@ -63,17 +84,23 @@ public class Partie {
     RegleCoup r = v.verifCoup();
     if (this.premierCoup) {
       this.premierCoup = false;
-      plateau.placer(c, this.doisJouer);
-      this.donnerLaMain();
+      this.joueurJoue(c);
       return true;
     } else if (r.estValide(c, plateau) &&
         plateau.contenu(c) == Joueur.VIDE)
     {
-      plateau.placer(c, this.doisJouer);
-      this.donnerLaMain();
+      this.joueurJoue(c);
       return true;
     }
     return false;
+  }
+
+  private void joueurJoue(Coordonnees c) {
+    if (this.aLaMain(Joueur.NOIR))
+      jNoir.jouerUnCoup(plateau, c);
+    else
+      jBlanc.jouerUnCoup(plateau, c);
+    this.donnerLaMain();
   }
 
   private void donnerLaMain() {

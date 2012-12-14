@@ -5,17 +5,17 @@ import java.awt.event.*;
 import gomoku.jeu.*;
 import gomoku.regles.*;
 import java.lang.Math;
- 
+
 public class MouseClic extends MouseAdapter implements MouseListener{
- 
+
 	JComponent component;
 	Partie partie;
- 
+
 	public MouseClic(JComponent component, Partie p) {
 		this.component = component;
 		this.partie = p;
 	}
- 
+
 	public void mouseClicked(MouseEvent e){
 		// On récupère le plateau de la partie
 		Plateau plateau = partie.getPlateau();
@@ -32,12 +32,7 @@ public class MouseClic extends MouseAdapter implements MouseListener{
 			PierreCoordonnees coordPierre = new PierreCoordonnees(coordX,coordY);
 			System.out.println(coordX + " " + coordY);
 
-			if(partie.placerPierreAuxCoor(coordPierre)) {
-				component.repaint();
-				if (!partie.estGagne()) {
-					System.out.println("Gagné");			
-				}
-			}
+      partie.jouerGUI(component, coordPierre);
 		}
 	}
 }

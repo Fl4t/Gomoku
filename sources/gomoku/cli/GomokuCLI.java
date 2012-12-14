@@ -13,17 +13,6 @@ public class GomokuCLI {
     Partie partie = new Partie(new JoueurHumain(Joueur.NOIR),
                           new JoueurHumain(Joueur.BLANC),
                           new Grille(new Gomoku()));
-    while (partie.coupAjouer()) {
-      Coordonnees c = partie.demanderCoor();
-      if (!partie.placerPierreAuxCoor(c))
-        System.out.println("Vous ne pouvez pas placer ici.");
-      partie.rafraichirGrille();
-    }
-    if (partie.estGagne()) {
-      System.out.println("félicitation joueur " +
-          partie.joueurGagnant());
-    } else {
-      System.out.println("Partie nulle !");
-    }
+    partie.jouerCLI();
   }
 }
