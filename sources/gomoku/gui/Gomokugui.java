@@ -1,6 +1,8 @@
 package gomoku.gui;
 
 import javax.swing.JPanel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.awt.*; 
 import gomoku.regles.*;
@@ -13,13 +15,11 @@ public class Gomokugui extends JFrame {
 
    Plateau plateau = p.getPlateau();
 
-
-
     	
     	//Définit un titre pour notre fenêtre
     	this.setTitle("Gomoku");
     	//Définit sa taille : 500 pixels de large et 500 pixels de haut
-    	this.setSize(plateau.largeur()*30,plateau.hauteur()*30);
+    	this.setSize(600,640);
     	//Nous demandons maintenant à notre objet de se positionner au centre
     	this.setLocationRelativeTo(null);
     	//Termine le processus lorsqu'on clique sur la croix rouge
@@ -37,19 +37,22 @@ public class Gomokugui extends JFrame {
       JMenuItem itemQuitter = new JMenuItem("Quitter");
       jeu.add(itemQuitter);
 
-      menuBar.add(jeu);
-        
-      setJMenuBar(menuBar);
+      // On ajoute l'evenement fermet l'application à l'objet Quitter du menu
+      itemQuitter.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent arg0) {
+        System.exit(0);
+      }        
+    });
 
-      this.setLayout(new BorderLayout());
+      // On ajoute le menu créé précedemment dans la fenêtre
+      menuBar.add(jeu);       
+      setJMenuBar(menuBar);
 
       // On crée un dessin de type DessinPlateau (JPanel)
       DessinPlateau dessin = new DessinPlateau(plateau);
 
       // On ajoute le dessin à la JFrame
-      this.getContentPane().add(dessin, BorderLayout.CENTER);
-
-      getContentPane().add(dessin);
+      this.getContentPane().add(dessin);
 
       MouseClic me = new MouseClic(dessin, p);
       dessin.addMouseListener(me);

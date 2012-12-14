@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import gomoku.jeu.*;
 import gomoku.regles.*;
+import java.lang.Math;
  
 public class MouseClic extends MouseAdapter implements MouseListener{
  
@@ -23,12 +24,20 @@ public class MouseClic extends MouseAdapter implements MouseListener{
 		int largeur = plateau.largeur();
 		int hauteur = plateau.hauteur();
 
-		PierreCoordonnees coordPierre = new PierreCoordonnees(e.getX()/largeur,e.getY()/hauteur);
-		System.out.println(e.getX()/largeur + " " + e.getY()/hauteur);
+		int coordX = (int) Math.round((e.getX()-30)/(double) 30);
+		int coordY = (int) Math.round((e.getY()-30)/(double) 30);
 
-		if(partie.placerPierreAuxCoor(coordPierre)) {
-			component.repaint();
+		if(coordX >= 0 && coordX <= 18 && coordY >= 0 && coordY <= 18) {
+
+			PierreCoordonnees coordPierre = new PierreCoordonnees(coordX,coordY);
+			System.out.println(coordX + " " + coordY);
+
+			if(partie.placerPierreAuxCoor(coordPierre)) {
+				component.repaint();
+				if (!partie.estGagne()) {
+					System.out.println("Gagné");			
+				}
+			}
 		}
-
 	}
 }

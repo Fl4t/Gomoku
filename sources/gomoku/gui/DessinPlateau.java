@@ -16,33 +16,31 @@ public class DessinPlateau extends JPanel {
         this.plateau = p;
         this.largeur = p.largeur();
         this.hauteur = p.hauteur();
-
   	}      
        
 	public void paint(Graphics g){
-
-
-    	
-		for(int iX = this.largeur; iX < this.largeur*this.largeur; iX+=40){
-        	for(int iY = this.hauteur; iY < this.hauteur*this.hauteur; iY+=40){          
-                g.setColor(Color.RED);
-            	g.drawRect(iX,iY,40,40);
+ 	
+		for(int iX = 0; iX < this.largeur-1; iX++){
+        	for(int iY = 0; iY < this.hauteur-1; iY++){          
+                g.setColor(Color.BLACK);
+            	g.drawRect(30*iX+30, 30*iY+30, 30, 30);
     	    }
     	}
-
         //On parcours le plateau
-        for(int iX = 1; iX<this.largeur; iX++) {
-            for (int iY = 1;iY<this.hauteur ;iY++ ) {
+        for(int iX = 0; iX<this.largeur; iX++) {
+            for (int iY = 0;iY<this.hauteur;iY++ ) {
                 // Si l'emplacement contient la couleur NOIR, on dessine une pierre NOIRE
                 if(plateau.contenu(new PierreCoordonnees(iX,iY)) == Joueur.NOIR) {
                     g.setColor(Color.BLACK);
-                    g.fillRect(iX*this.largeur-5,iY*this.hauteur-5,20,20);
-                    
+                    g.fillRect(((iX+1)*30)-10, ((iY+1)*30)-10, 20, 20);
+                    g.drawRect(((iX+1)*30)-10, ((iY+1)*30)-10, 20, 20);                  
                 }
                 // Si l'emplacement contien la couleur BLANC, on dessine une pierre BLANCHE
-                if(plateau.contenu(new PierreCoordonnees(iX,iY)) == Joueur.BLANC) {
+                if(plateau.contenu(new PierreCoordonnees(iX,iY)) == Joueur.BLANC) {                 
                     g.setColor(Color.WHITE);
-                    g.fillRect(iX*this.largeur-5,iY*this.hauteur-5,20,20);
+                    g.fillRect(((iX+1)*30)-10, ((iY+1)*30)-10, 20, 20);
+                    g.setColor(Color.BLACK);
+                    g.drawRect(((iX+1)*30)-10, ((iY+1)*30)-10, 20, 20);
                 }
             }
         }

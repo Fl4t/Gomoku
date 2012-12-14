@@ -107,4 +107,8 @@ public class Partie {
     return this.aLaMain(Joueur.NOIR) ? "BLANC" : "NOIR";
   }
 
+  public Plateau getPlateau(){
+    return this.plateau;
+  }
+
 }
