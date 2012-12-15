@@ -195,7 +195,7 @@ public class Grille implements Plateau {
 
     int cpt = 0;
     Coordonnees coor[] = new Coordonnees[taille];
-    Set<Alignement> alignD = new HashSet<Alignement>();
+    Set<Alignement> alignG = new HashSet<Alignement>();
 
     // parcourt de la première moitiée
     for (int x = this.largeur-1; x >= 0 ; x--)
@@ -203,7 +203,7 @@ public class Grille implements Plateau {
         if (this.contenu(new PierreCoordonnees(x+y, y)) == couleur) {
           coor[cpt] = new PierreCoordonnees(x+y, y);
           if (cpt == taille-1) {
-            alignD.add(new VecteurAlignement(coor[0], coor[cpt], this.v));
+            alignG.add(new VecteurAlignement(coor[0], coor[cpt], this.v));
           } else {
             cpt++;
           }
@@ -219,7 +219,7 @@ public class Grille implements Plateau {
         if (this.contenu(new PierreCoordonnees(x, y+x)) == couleur) {
           coor[cpt] = new PierreCoordonnees(x, y+x);
           if (cpt == taille-1) {
-            alignD.add(new VecteurAlignement(coor[0], coor[cpt], this.v));
+            alignG.add(new VecteurAlignement(coor[0], coor[cpt], this.v));
           } else {
             cpt++;
           }
@@ -229,7 +229,7 @@ public class Grille implements Plateau {
             coor[i] = null;
         }
 
-    return alignD;
+    return alignG;
   }
 
   /** Calcule, pour le joueur de la couleur spécifiée, l'ensemble
