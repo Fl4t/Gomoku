@@ -12,6 +12,8 @@ import gomoku.jeu.Plateau;
 import gomoku.jeu.Grille;
 import gomoku.jeu.PierreCoordonnees;
 
+import javax.swing.JOptionPane;
+
 public class Partie {
 
   private JoueurHumain jNoir;
@@ -20,6 +22,7 @@ public class Partie {
   private boolean premierCoup = true;
   private int doisJouer = Joueur.NOIR;
   private int gagnant;
+  private JOptionPane jop1;
 
   public Partie(JoueurHumain jNoir, JoueurHumain jBlanc, Plateau plateau) {
     this.jNoir = jNoir;
@@ -44,9 +47,13 @@ public class Partie {
     if (this.coupAjouer() && this.gagnant == 0) {
       if(this.placerPierreAuxCoor(c))
         component.repaint();
-    } else
-      System.out.println("félicitation joueur " +
-          this.couleurIntToString(this.gagnant));
+    } else {
+          jop1 = new JOptionPane();
+           jop1.showMessageDialog(null, "Le joueur " + this.couleurIntToString(this.gagnant) + " a gagné !" , "Fin", JOptionPane.CLOSED_OPTION,null);   
+           System.exit(0);
+          
+          
+      }
   }
 
   private boolean coupAjouer() {
