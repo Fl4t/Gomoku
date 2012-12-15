@@ -92,8 +92,8 @@ public class Grille implements Plateau {
     return englobante;
   }
 
-    int cpt, x, y;
   public Set<Alignement> vertical(int couleur, int taille) {
+    int cpt, x, y;
     Set<Alignement> alignV = new HashSet<Alignement>();
     for (x = 0; x < this.largeur; x++) {
       cpt = 0;
@@ -113,8 +113,8 @@ public class Grille implements Plateau {
     return alignV;
   }
 
-    int cpt, x, y;
   public Set<Alignement> horizontal(int couleur, int taille) {
+    int cpt, x, y;
     Set<Alignement> alignH = new HashSet<Alignement>();
     for (y = 0; y < this.hauteur; y++) {
       cpt = 0;
