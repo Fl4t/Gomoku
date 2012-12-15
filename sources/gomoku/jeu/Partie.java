@@ -22,7 +22,6 @@ public class Partie {
   private boolean premierCoup = true;
   private int doisJouer = Joueur.NOIR;
   private int gagnant;
-  private JOptionPane jop1;
 
   public Partie(JoueurHumain jNoir, JoueurHumain jBlanc, Plateau plateau) {
     this.jNoir = jNoir;
@@ -31,28 +30,35 @@ public class Partie {
   }
 
   public void jouerCLI() {
-    while (this.coupAjouer() && this.gagnant == 0) {
-      Coordonnees c = this.demanderCoor();
-      if (this.placerPierreAuxCoor(c)) {
-        System.out.println(plateau);
+    while (this.coupAjouer()) {
+      if (this.gagnant == 0) {
+        Coordonnees c = this.demanderCoor();
+        if (this.placerPierreAuxCoor(c))
+          System.out.println(plateau);
+        else
+          System.out.println("Vous ne pouvez pas placer ici.");
       } else {
-        System.out.println("Vous ne pouvez pas placer ici.");
+        System.out.println("félicitation joueur " +
+            this.couleurIntToString(this.gagnant));
+        break;
       }
     }
-    System.out.println("félicitation joueur " +
-        this.couleurIntToString(this.gagnant));
+    if (!this.coupAjouer())
+      System.out.println("Partie nulle!");
   }
 
   public void jouerGUI(JComponent component, Coordonnees c) {
-    if (this.coupAjouer() && this.gagnant == 0) {
+    if (this.coupAjouer()) {
       if(this.placerPierreAuxCoor(c))
         component.repaint();
+      if (this.gagnant != 0) {
+        JOptionPane.showMessageDialog(null, "Le joueur " +
+            this.couleurIntToString(this.gagnant) + " a gagné !" ,
+            "Fin", JOptionPane.CLOSED_OPTION,null);
+      }
     } else {
-      jop1 = new JOptionPane();
-      jop1.showMessageDialog(null, "Le joueur " + this.couleurIntToString(this.gagnant) + " a gagné !" , "Fin", JOptionPane.CLOSED_OPTION,null);   
-      System.exit(0);
-
-
+      JOptionPane.showMessageDialog(null, "Partie nulle !" ,
+          "Fin", JOptionPane.CLOSED_OPTION,null);
     }
   }
 
