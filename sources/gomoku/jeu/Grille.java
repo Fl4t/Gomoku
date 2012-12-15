@@ -75,13 +75,13 @@ public class Grille implements Plateau {
   public Set<Alignement> rechercherAlignements(int couleur, int taille) {
     Set<Alignement> alignTrouvees = new HashSet<Alignement>();
     alignTrouvees = this.concatenerLesHashSet(alignTrouvees,
-        this.rechercherAlignementsVertical(couleur, taille));
+        this.vertical(couleur, taille));
     alignTrouvees = this.concatenerLesHashSet(alignTrouvees,
-      this.rechercherAlignementsHorizontal(couleur, taille));
+        this.horizontal(couleur, taille));
     alignTrouvees = this.concatenerLesHashSet(alignTrouvees,
-      this.rechercherAlignementsDiagonalDes(couleur, taille));
+        this.deDroiteAGauche(couleur, taille));
     alignTrouvees = this.concatenerLesHashSet(alignTrouvees,
-      this.rechercherAlignementsDiagonalAsc(couleur, taille));
+        this.deGaucheADroite(couleur, taille));
     return alignTrouvees;
   }
 
@@ -92,8 +92,8 @@ public class Grille implements Plateau {
     return englobante;
   }
 
-  public Set<Alignement> rechercherAlignementsVertical(int couleur, int taille) {
     int cpt, x, y;
+  public Set<Alignement> vertical(int couleur, int taille) {
     Set<Alignement> alignV = new HashSet<Alignement>();
     for (x = 0; x < this.largeur; x++) {
       cpt = 0;
@@ -113,8 +113,8 @@ public class Grille implements Plateau {
     return alignV;
   }
 
-  public Set<Alignement> rechercherAlignementsHorizontal(int couleur, int taille) {
     int cpt, x, y;
+  public Set<Alignement> horizontal(int couleur, int taille) {
     Set<Alignement> alignH = new HashSet<Alignement>();
     for (y = 0; y < this.hauteur; y++) {
       cpt = 0;
@@ -134,7 +134,7 @@ public class Grille implements Plateau {
     return alignH;
   }
 
-  public Set<Alignement> rechercherAlignementsDiagonalDes(int couleur, int taille) {
+  public Set<Alignement> deDroiteAGauche(int couleur, int taille) {
 
     int cpt = 0;
     Coordonnees coor[] = new Coordonnees[taille];
@@ -172,7 +172,7 @@ public class Grille implements Plateau {
     return alignD;
   }
 
-  public Set<Alignement> rechercherAlignementsDiagonalAsc(int couleur, int taille) {
+  public Set<Alignement> deGaucheADroite(int couleur, int taille) {
 
     int cpt = 0;
     Coordonnees coor[] = new Coordonnees[taille];
