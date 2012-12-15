@@ -160,9 +160,7 @@ public class Grille implements Plateau {
       for (int y = 0; y < x+1; y++)
         if (this.contenu(new PierreCoordonnees(x-y, y)) == couleur) {
           coor[cpt] = new PierreCoordonnees(x-y, y);
-          System.out.print(cpt);
           if (cpt == taille-1) {
-            System.out.print(cpt);
             alignD.add(new VecteurAlignement(coor[0], coor[cpt], this.v));
           } else {
             cpt++;
@@ -189,9 +187,6 @@ public class Grille implements Plateau {
           for (int i = 0; i < coor.length; i++)
             coor[i] = null;
         }
-
-    for(Alignement a: alignD)
-      System.out.println(a);
 
     return alignD;
   }

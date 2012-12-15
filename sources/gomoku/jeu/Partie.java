@@ -127,7 +127,6 @@ public class Partie {
     Set<Alignement> align = plateau.rechercherAlignements(this.doisJouer,
         regle.tailleMin());
     for (Alignement a: align) {
-    System.out.println("verifAlignement " + a);
       if (regle.estGagnant(a, this.plateau))
          this.gagnant = this.doisJouer;
     }
