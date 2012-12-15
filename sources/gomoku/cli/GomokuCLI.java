@@ -1,18 +1,16 @@
 package gomoku.cli;
 
-import gomoku.jeu.Grille;
 import gomoku.regles.Gomoku;
-import gomoku.jeu.JoueurHumain;
-import gomoku.jeu.Joueur;
-import gomoku.jeu.Partie;
-import gomoku.jeu.Coordonnees;
+import gomoku.jeu.*;
 
 public class GomokuCLI {
 
   public static void main (String[] args) {
-    Partie partie = new Partie(new JoueurHumain(Joueur.NOIR),
-        new JoueurHumain(Joueur.BLANC),
+    JoueurAbstrait joueur1 = new JoueurHumain(Joueur.NOIR);
+    JoueurAbstrait joueur2 = new JoueurHumain(Joueur.BLANC);
+    Partie partie = new PartieCLI(joueur1, joueur2,
         new Grille(new Gomoku()));
-    partie.jouerCLI();
+
+    partie.jouer();
   }
 }
