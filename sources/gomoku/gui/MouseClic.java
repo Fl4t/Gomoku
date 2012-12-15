@@ -5,19 +5,18 @@ import java.awt.event.*;
 import gomoku.jeu.*;
 import java.lang.Math;
 
-public class MouseClic extends MouseAdapter implements MouseListener{
+public class MouseClic extends MouseAdapter {
 
-  private JComponent component;
-  private Partie partie;
+  private PartieGUI partie;
+  private Coordonnees c;
 
-  public MouseClic(JComponent component, Partie p) {
-    this.component = component;
+  public MouseClic(PartieGUI p) {
     this.partie = p;
   }
 
-  public void mouseClicked(MouseEvent e){
+  public void mouseClicked(MouseEvent e) {
     // On récupère le plateau de la partie
-    Plateau plateau = partie.getPlateau();
+    Plateau plateau = this.partie.getPlateau();
 
     // On récupère les dimensions en nombre de cases
     int largeur = plateau.largeur();
@@ -27,10 +26,15 @@ public class MouseClic extends MouseAdapter implements MouseListener{
     int coordY = (int) Math.round((e.getY()-30)/(double) 30);
 
     if(coordX >= 0 && coordX <= 18 && coordY >= 0 && coordY <= 18) {
-
-      PierreCoordonnees coordPierre = new PierreCoordonnees(coordX,coordY);
-
-      partie.jouerGUI(component, coordPierre);
+      this.setLesCoordonnees(coordX, coordY);
     }
+  }
+
+  public void setLesCoordonnees(int x, int y) {
+    this.c = new PierreCoordonnees(x, y);
+  }
+
+  public Coordonnees getLesCoordonnees() {
+    return this.c;
   }
 }

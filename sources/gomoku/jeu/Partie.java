@@ -1,128 +1,94 @@
 package gomoku.jeu;
 
-import java.lang.Integer;
 import java.util.Set;
-import java.util.Scanner;
-import java.util.Iterator;
-import javax.swing.JComponent;
 import gomoku.regles.Variante;
 import gomoku.regles.RegleCoup;
 import gomoku.regles.RegleAlignement;
 import gomoku.jeu.Plateau;
 import gomoku.jeu.Grille;
 import gomoku.jeu.PierreCoordonnees;
-import javax.swing.JOptionPane;
 
-public class Partie {
+public abstract class Partie {
 
-  private JoueurHumain jNoir;
-  private JoueurHumain jBlanc;
-  private Plateau plateau;
+  protected JoueurAbstrait jNoir = new JoueurHumain(Joueur.NOIR);
+  protected JoueurAbstrait jBlanc = new JoueurHumain(Joueur.BLANC);
+  protected Plateau plateau;
   private boolean premierCoup = true;
   private int doisJouer = Joueur.NOIR;
   private int gagnant;
 
-  public Partie(JoueurHumain jNoir, JoueurHumain jBlanc, Plateau plateau) {
+  public Partie(JoueurAbstrait jNoir, JoueurAbstrait jBlanc, Plateau plateau) {
     this.jNoir = jNoir;
     this.jBlanc = jBlanc;
     this.plateau = plateau;
   }
 
-  public void jouerCLI() {
-    while (this.coupAjouer()) {
-      if (this.gagnant == 0) {
-        Coordonnees c = this.demanderCoor();
-        if (this.placerPierreAuxCoor(c))
-          System.out.println(plateau);
-        else
-          System.out.println("Vous ne pouvez pas placer ici.");
-      } else {
-        System.out.println("félicitation joueur " +
-            this.couleurIntToString(this.gagnant));
-        break;
-      }
-    }
-    if (!this.coupAjouer())
-      System.out.println("Partie nulle!");
+  public int getGagnant() {
+    return this.gagnant;
   }
 
-  public void jouerGUI(JComponent component, Coordonnees c) {
-    if (this.coupAjouer()) {
-      if(this.placerPierreAuxCoor(c))
-        component.repaint();
-      if (this.gagnant != 0) {
-        JOptionPane.showMessageDialog(null, "Le joueur " +
-            this.couleurIntToString(this.gagnant) + " a gagné !" ,
-            "Fin", JOptionPane.CLOSED_OPTION,null);
-      }
-    } else {
-      JOptionPane.showMessageDialog(null, "Partie nulle !" ,
-          "Fin", JOptionPane.CLOSED_OPTION,null);
-    }
-  }
+  public abstract void jouer();
+  public abstract void afficherLaGrille();
+  public abstract void nePeutPasPlacerIci();
+  public abstract void leJoueurAGagne(String str);
+  public abstract void laPartieEstNulle();
 
-  private boolean coupAjouer() {
+  public boolean coupAjouer() {
     if (!(this.jNoir.getNbCoups() == 0
           && this.jBlanc.getNbCoups() == 0))
       return true;
     return false;
   }
 
-  private Coordonnees demanderCoor() {
+  public Coordonnees demanderCoor() {
     return this.aLaMain(Joueur.BLANC) ?
-      this.demanderCoorJoueur(Joueur.BLANC) :
-      this.demanderCoorJoueur(Joueur.NOIR);
+      this.jBlanc.demanderCoorJoueur() :
+      this.jNoir.demanderCoorJoueur();
   }
 
-  private Coordonnees demanderCoorJoueur(int couleur) {
-    String str = this.couleurIntToString(couleur);
-    Scanner sc = new Scanner(System.in);
-    System.out.println("\nJoueur " + str + "\n");
-    System.out.println("Saisir la coordonnée x : ");
-    int coorX = sc.nextInt();
-    System.out.println("Saisir la coordonnée y : ");
-    int coorY = sc.nextInt();
-    return new PierreCoordonnees(coorX, coorY);
-  }
-
-  private String couleurIntToString(int couleur) {
-    return couleur == Joueur.NOIR ? "NOIR" : "BLANC";
-  }
-
-  private boolean aLaMain(int couleur) {
+  public boolean aLaMain(int couleur) {
     return couleur == this.doisJouer ? true : false;
   }
 
-  private boolean placerPierreAuxCoor(Coordonnees c) {
+  public boolean demanderDeJouer() {
+    Coordonnees c = null;
     Variante v = ((Grille)plateau).getVariante();
     RegleCoup r = v.verifCoup();
     if (this.premierCoup) {
       this.premierCoup = false;
+      c = this.demanderCoor();
       this.joueurJoue(c);
       return true;
-    } else if (r.estValide(c, plateau) &&
-        plateau.contenu(c) == Joueur.VIDE)
-    {
-      this.joueurJoue(c);
-      return true;
+    } else {
+      c = this.demanderCoor();
+      if (r.estValide(c, plateau) &&
+        this.plateau.contenu(c) == Joueur.VIDE)
+      {
+        this.joueurJoue(c);
+        return true;
+      }
     }
     return false;
   }
 
-  private void joueurJoue(Coordonnees c) {
-    if (this.aLaMain(Joueur.NOIR))
-      jNoir.jouerUnCoup(plateau, c);
-    else
-      jBlanc.jouerUnCoup(plateau, c);
+  public void joueurJoue(Coordonnees c) {
+    if (this.aLaMain(Joueur.NOIR)) {
+      this.plateau.placer(c, this.jNoir.couleur());
+      this.jNoir.joueUnePierre();
+    }
+    else {
+      this.plateau.placer(c, this.jBlanc.couleur());
+      this.jNoir.joueUnePierre();
+    }
     this.verifierCoupGagnant();
   }
 
-  private void donnerLaMain() {
+  public void donnerLaMain() {
     this.doisJouer = this.aLaMain(Joueur.NOIR) ?
       Joueur.BLANC : Joueur.NOIR;
   }
 
-  private void verifierCoupGagnant() {
+  public void verifierCoupGagnant() {
     Variante v = ((Grille)this.plateau).getVariante();
     RegleAlignement regle = v.verifAlignement();
     Set<Alignement> align = plateau.rechercherAlignements(this.doisJouer,
