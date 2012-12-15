@@ -28,39 +28,41 @@ public class Partie {
   }
 
   public void jouerCLI() {
-    while (this.coupAjouer()) {
+    while (this.coupAjouer() && this.gagnant == 0) {
       Coordonnees c = this.demanderCoor();
-      if (!this.placerPierreAuxCoor(c))
+      if (this.placerPierreAuxCoor(c)) {
+        this.rafraichirGrille();
+      } else {
         System.out.println("Vous ne pouvez pas placer ici.");
-      this.rafraichirGrille();
+      }
     }
-    if (this.estGagne())
-      System.out.println("félicitation joueur " +
-          this.joueurGagnant());
-    else
-      System.out.println("Partie nulle !");
+    System.out.println("félicitation joueur " +
+        this.couleurIntToString(this.gagnant));
   }
 
   public void jouerGUI(JComponent component, Coordonnees c) {
-    if (this.coupAjouer())
+    if (this.coupAjouer() && this.gagnant == 0) {
       if(this.placerPierreAuxCoor(c))
         component.repaint();
+    } else
+      System.out.println("félicitation joueur " +
+          this.couleurIntToString(this.gagnant));
   }
 
-  public boolean coupAjouer() {
+  private boolean coupAjouer() {
     if (!(this.jNoir.getNbCoups() == 0
-        && this.jBlanc.getNbCoups() == 0))
+          && this.jBlanc.getNbCoups() == 0))
       return true;
     return false;
   }
 
-  public Coordonnees demanderCoor() {
-      return this.aLaMain(Joueur.BLANC) ?
-        this.demanderCoorJoueur(Joueur.BLANC) :
-        this.demanderCoorJoueur(Joueur.NOIR);
+  private Coordonnees demanderCoor() {
+    return this.aLaMain(Joueur.BLANC) ?
+      this.demanderCoorJoueur(Joueur.BLANC) :
+      this.demanderCoorJoueur(Joueur.NOIR);
   }
 
-  public Coordonnees demanderCoorJoueur(int couleur) {
+  private Coordonnees demanderCoorJoueur(int couleur) {
     String str = this.couleurIntToString(couleur);
     Scanner sc = new Scanner(System.in);
     System.out.println("\nJoueur " + str + "\n");
@@ -71,7 +73,7 @@ public class Partie {
     return new PierreCoordonnees(coorX, coorY);
   }
 
-  public String couleurIntToString(int couleur) {
+  private String couleurIntToString(int couleur) {
     return couleur == Joueur.NOIR ? "NOIR" : "BLANC";
   }
 
@@ -79,7 +81,7 @@ public class Partie {
     return couleur == this.doisJouer ? true : false;
   }
 
-  public boolean placerPierreAuxCoor(Coordonnees c) {
+  private boolean placerPierreAuxCoor(Coordonnees c) {
     Variante v = ((Grille)plateau).getVariante();
     RegleCoup r = v.verifCoup();
     if (this.premierCoup) {
@@ -100,7 +102,7 @@ public class Partie {
       jNoir.jouerUnCoup(plateau, c);
     else
       jBlanc.jouerUnCoup(plateau, c);
-    this.donnerLaMain();
+    this.verifierCoupGagnant();
   }
 
   private void donnerLaMain() {
@@ -108,34 +110,25 @@ public class Partie {
       Joueur.BLANC : Joueur.NOIR;
   }
 
-  public void rafraichirGrille() {
+  private void rafraichirGrille() {
     System.out.println(plateau);
   }
 
-  /*
-   * Méthode estGagne.
-   * Methode retournant un booléen lorsque la partie
-   * est gagné par l'un des joueurs.
-   * Une partie est gagné lorsque :
-   *
-   */
-  public boolean estGagne() {
+  private void verifierCoupGagnant() {
     Variante v = ((Grille)this.plateau).getVariante();
     RegleAlignement regle = v.verifAlignement();
-    Set<Alignement> align = plateau.rechercherAlignements( this.doisJouer,
+    Set<Alignement> align = plateau.rechercherAlignements(this.doisJouer,
         regle.tailleMin());
-    Iterator<Alignement> it = align.iterator();
-    while (it.hasNext())
-      if (regle.estGagnant(it.next(), this.plateau)) return true;
-    return false;
+    for (Alignement a: align) {
+    System.out.println("verifAlignement " + a);
+      if (regle.estGagnant(a, this.plateau))
+         this.gagnant = this.doisJouer;
+    }
+    if (this.gagnant == 0)
+      this.donnerLaMain();
   }
 
-  public String joueurGagnant() {
-    return this.aLaMain(Joueur.NOIR) ? "BLANC" : "NOIR";
-  }
-
-  public Plateau getPlateau(){
+  public Plateau getPlateau() {
     return this.plateau;
   }
-
 }
