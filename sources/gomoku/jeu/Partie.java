@@ -11,7 +11,6 @@ import gomoku.regles.RegleAlignement;
 import gomoku.jeu.Plateau;
 import gomoku.jeu.Grille;
 import gomoku.jeu.PierreCoordonnees;
-
 import javax.swing.JOptionPane;
 
 public class Partie {
