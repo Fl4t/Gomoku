@@ -203,33 +203,35 @@ public class Grille implements Plateau {
     Set<Alignement> alignD = new HashSet<Alignement>();
 
     // parcourt de la première moitiée
-    for (int y = 0; y < this.largeur; y++)
-      for (int x = 0; x < y+1; x++)
-        if (this.contenu(new PierreCoordonnees(y-x, x)) == couleur) {
-          cpt++;
-          coor[cpt] = new PierreCoordonnees(y-x, x);
-          if (cpt == taille) {
+    for (int x = this.largeur-1; x >= 0 ; x--)
+      for (int y = 0; y < this.largeur - x; y++)
+        if (this.contenu(new PierreCoordonnees(x+y, y)) == couleur) {
+          coor[cpt] = new PierreCoordonnees(x+y, y);
+          if (cpt == taille-1) {
             alignD.add(new VecteurAlignement(coor[0], coor[cpt], this.v));
           } else {
-            cpt = 0;
-            for (int i = 0; i < coor.length; i++)
-              coor[i] = null;
+            cpt++;
           }
+        } else {
+          cpt = 0;
+          for (int i = 0; i < coor.length; i++)
+            coor[i] = null;
         }
 
     // parcourt de la deuxieme moitiée
-    for (int x = 0; x < this.hauteur-2; x++)
-      for (int y = this.largeur-1; y > x; y--)
-        if (this.contenu(new PierreCoordonnees(y, this.largeur - (y - x))) == couleur) {
-          cpt++;
-          coor[cpt] = new PierreCoordonnees(y, this.largeur - (y - x));
-          if (cpt == taille) {
+    for (int y = this.hauteur-1; y > 0; y--)
+      for (int x = 0; x < this.hauteur - y; x++)
+        if (this.contenu(new PierreCoordonnees(x, y+x)) == couleur) {
+          coor[cpt] = new PierreCoordonnees(x, y+x);
+          if (cpt == taille-1) {
             alignD.add(new VecteurAlignement(coor[0], coor[cpt], this.v));
           } else {
-            cpt = 0;
-            for (int i = 0; i < coor.length; i++)
-              coor[i] = null;
+            cpt++;
           }
+        } else {
+          cpt = 0;
+          for (int i = 0; i < coor.length; i++)
+            coor[i] = null;
         }
 
     return alignD;
