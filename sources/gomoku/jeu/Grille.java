@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import gomoku.regles.Variante;
 import gomoku.jeu.Alignement;
+import gomoku.regles.RegleCoup;
 
 /**
  * Cette classe implémente l'interface Plateau
@@ -49,7 +50,7 @@ public class Grille implements Plateau {
   public void placer(Coordonnees c, int couleur) {
     if (c.abscisse() < this.largeur &&
         c.ordonnee() < this.hauteur)
-    jeu[c.abscisse()][c.ordonnee()] = couleur;
+      jeu[c.abscisse()][c.ordonnee()] = couleur;
   }
 
   /** Calcule les positions voisines de la position spécifiée,
@@ -86,49 +87,47 @@ public class Grille implements Plateau {
   }
 
   private Set<Alignement> concatenerLesHashSet(Set<Alignement> englobante, Set<Alignement> englobee) {
-    Iterator<Alignement> it = englobee.iterator();
-    while (it.hasNext())
-      englobante.add(it.next());
+    for(Alignement a: englobee) {
+      englobante.add(a);
+    }
     return englobante;
   }
 
   public Set<Alignement> vertical(int couleur, int taille) {
-    int cpt, x, y;
+    int cpt = 0, x, y;
     Set<Alignement> alignV = new HashSet<Alignement>();
     for (x = 0; x < this.largeur; x++) {
-      cpt = 0;
       for (y = 0; y < this.hauteur; y++) {
         if (this.contenu(new PierreCoordonnees(x, y)) == couleur) {
           cpt++;
         } else {
           cpt = 0;
         }
-      }
-      if (cpt == taille) {
-        alignV.add(new VecteurAlignement(new PierreCoordonnees(x, y - taille),
-              new PierreCoordonnees(x, y),
-              this.v));
+        if (cpt == taille) {
+          alignV.add(new VecteurAlignement(new PierreCoordonnees(x, y - taille),
+                new PierreCoordonnees(x, y),
+                this.v));
+        }
       }
     }
     return alignV;
   }
 
   public Set<Alignement> horizontal(int couleur, int taille) {
-    int cpt, x, y;
+    int cpt = 0, x, y;
     Set<Alignement> alignH = new HashSet<Alignement>();
     for (y = 0; y < this.hauteur; y++) {
-      cpt = 0;
       for (x = 0; x < this.largeur; x++) {
         if (this.contenu(new PierreCoordonnees(x, y)) == couleur) {
           cpt++;
         } else {
           cpt = 0;
         }
-      }
-      if (cpt == taille) {
-        alignH.add(new VecteurAlignement(new PierreCoordonnees(x - taille, y),
-                          new PierreCoordonnees(x, y),
-                          this.v));
+        if (cpt == taille) {
+          alignH.add(new VecteurAlignement(new PierreCoordonnees(x - taille, y),
+                new PierreCoordonnees(x, y),
+                this.v));
+        }
       }
     }
     return alignH;
@@ -144,31 +143,40 @@ public class Grille implements Plateau {
     for (int x = 0; x < this.largeur; x++)
       for (int y = 0; y < x+1; y++)
         if (this.contenu(new PierreCoordonnees(x-y, y)) == couleur) {
-          cpt++;
           coor[cpt] = new PierreCoordonnees(x-y, y);
-          if (cpt == taille) {
+          System.out.print(cpt);
+          if (cpt == taille-1) {
+            System.out.print(cpt);
             alignD.add(new VecteurAlignement(coor[0], coor[cpt], this.v));
           } else {
-            cpt = 0;
-            for (int i = 0; i < coor.length; i++)
-              coor[i] = null;
+            cpt++;
           }
+        } else {
+          cpt = 0;
+          for (int i = 0; i < coor.length; i++)
+            coor[i] = null;
         }
 
+    cpt = 0;
     // parcourt de la deuxieme moitiée
     for (int y = 0; y < this.hauteur-2; y++)
       for (int x = this.largeur-1; x > y; x--)
         if (this.contenu(new PierreCoordonnees(x, this.largeur - (x - y))) == couleur) {
-          cpt++;
           coor[cpt] = new PierreCoordonnees(x, this.largeur - (x - y));
-          if (cpt == taille) {
+          if (cpt == taille-1) {
             alignD.add(new VecteurAlignement(coor[0], coor[cpt], this.v));
           } else {
-            cpt = 0;
-            for (int i = 0; i < coor.length; i++)
-              coor[i] = null;
+            cpt++;
           }
+        } else {
+          cpt = 0;
+          for (int i = 0; i < coor.length; i++)
+            coor[i] = null;
         }
+
+    for(Alignement a: alignD)
+      System.out.println(a);
+
     return alignD;
   }
 
@@ -233,15 +241,15 @@ public class Grille implements Plateau {
   public String toString() {
     String ret = "";
     for (int y = 0; y < this.hauteur(); y++) {
-       ret += "\n";
+      ret += "\n";
       for (int x = 0; x < this.largeur(); x++) {
         String test = this.jeu[x][y] == 1 ? "B" : "N";
         if (this.jeu[x][y] == -1)
           test = "N";
         else if (this.jeu[x][y] == 1)
-         test = "B";
+          test = "B";
         else
-         test = "0";
+          test = "0";
         ret += " " + test;
       }
     }
