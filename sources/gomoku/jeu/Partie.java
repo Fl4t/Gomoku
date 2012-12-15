@@ -34,7 +34,7 @@ public class Partie {
     while (this.coupAjouer() && this.gagnant == 0) {
       Coordonnees c = this.demanderCoor();
       if (this.placerPierreAuxCoor(c)) {
-        this.rafraichirGrille();
+        System.out.println(plateau);
       } else {
         System.out.println("Vous ne pouvez pas placer ici.");
       }
@@ -115,10 +115,6 @@ public class Partie {
   private void donnerLaMain() {
     this.doisJouer = this.aLaMain(Joueur.NOIR) ?
       Joueur.BLANC : Joueur.NOIR;
-  }
-
-  private void rafraichirGrille() {
-    System.out.println(plateau);
   }
 
   private void verifierCoupGagnant() {
