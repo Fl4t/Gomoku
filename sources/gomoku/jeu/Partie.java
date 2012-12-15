@@ -48,12 +48,12 @@ public class Partie {
       if(this.placerPierreAuxCoor(c))
         component.repaint();
     } else {
-          jop1 = new JOptionPane();
-           jop1.showMessageDialog(null, "Le joueur " + this.couleurIntToString(this.gagnant) + " a gagné !" , "Fin", JOptionPane.CLOSED_OPTION,null);   
-           System.exit(0);
-          
-          
-      }
+      jop1 = new JOptionPane();
+      jop1.showMessageDialog(null, "Le joueur " + this.couleurIntToString(this.gagnant) + " a gagné !" , "Fin", JOptionPane.CLOSED_OPTION,null);   
+      System.exit(0);
+
+
+    }
   }
 
   private boolean coupAjouer() {
@@ -124,7 +124,7 @@ public class Partie {
         regle.tailleMin());
     for (Alignement a: align) {
       if (regle.estGagnant(a, this.plateau))
-         this.gagnant = this.doisJouer;
+        this.gagnant = this.doisJouer;
     }
     if (this.gagnant == 0)
       this.donnerLaMain();

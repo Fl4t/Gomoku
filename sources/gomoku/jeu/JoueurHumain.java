@@ -5,7 +5,7 @@ public class JoueurHumain implements Joueur {
   /**
    * couleur attribué au joueur
    */
-	private int couleur;
+  private int couleur;
   private int nbCoups;
 
   public JoueurHumain (int c) {

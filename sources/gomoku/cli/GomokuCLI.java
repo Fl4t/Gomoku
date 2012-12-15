@@ -11,8 +11,8 @@ public class GomokuCLI {
 
   public static void main (String[] args) {
     Partie partie = new Partie(new JoueurHumain(Joueur.NOIR),
-                          new JoueurHumain(Joueur.BLANC),
-                          new Grille(new Gomoku()));
+        new JoueurHumain(Joueur.BLANC),
+        new Grille(new Gomoku()));
     partie.jouerCLI();
   }
 }
