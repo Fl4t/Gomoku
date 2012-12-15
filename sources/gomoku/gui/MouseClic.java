@@ -3,13 +3,12 @@ package gomoku.gui;
 import javax.swing.*;
 import java.awt.event.*;
 import gomoku.jeu.*;
-import gomoku.regles.*;
 import java.lang.Math;
 
 public class MouseClic extends MouseAdapter implements MouseListener{
 
-	JComponent component;
-	Partie partie;
+	private JComponent component;
+	private Partie partie;
 
 	public MouseClic(JComponent component, Partie p) {
 		this.component = component;
@@ -32,7 +31,7 @@ public class MouseClic extends MouseAdapter implements MouseListener{
 			PierreCoordonnees coordPierre = new PierreCoordonnees(coordX,coordY);
 			System.out.println(coordX + " " + coordY);
 
-      partie.jouerGUI(component, coordPierre);
+      		partie.jouerGUI(component, coordPierre);
 		}
 	}
 }
