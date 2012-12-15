@@ -29,7 +29,6 @@ public class MouseClic extends MouseAdapter implements MouseListener{
 		if(coordX >= 0 && coordX <= 18 && coordY >= 0 && coordY <= 18) {
 
 			PierreCoordonnees coordPierre = new PierreCoordonnees(coordX,coordY);
-			System.out.println(coordX + " " + coordY);
 
       		partie.jouerGUI(component, coordPierre);
 		}
