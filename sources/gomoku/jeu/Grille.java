@@ -104,9 +104,17 @@ public class Grille implements Plateau {
           cpt = 0;
         }
         if (cpt == taille) {
-          alignV.add(new VecteurAlignement(new PierreCoordonnees(x, y - taille),
-                new PierreCoordonnees(x, y),
-                this.v));
+          if (y+1 < this.hauteur) {
+            if (this.contenu(new PierreCoordonnees(x, y+1)) != couleur) {
+              alignV.add(new VecteurAlignement(new PierreCoordonnees(x, y - taille),
+                    new PierreCoordonnees(x, y),
+                    this.v));
+            }
+          } else {
+            alignV.add(new VecteurAlignement(new PierreCoordonnees(x, y - taille),
+                  new PierreCoordonnees(x, y),
+                  this.v));
+          }
         }
       }
     }
@@ -124,9 +132,17 @@ public class Grille implements Plateau {
           cpt = 0;
         }
         if (cpt == taille) {
-          alignH.add(new VecteurAlignement(new PierreCoordonnees(x - taille, y),
-                new PierreCoordonnees(x, y),
-                this.v));
+          if (x+1 < this.largeur) {
+            if (this.contenu(new PierreCoordonnees(x+1, y)) != couleur) {
+              alignH.add(new VecteurAlignement(new PierreCoordonnees(x - taille, y),
+                    new PierreCoordonnees(x, y),
+                    this.v));
+            }
+          } else {
+            alignH.add(new VecteurAlignement(new PierreCoordonnees(x - taille, y),
+                  new PierreCoordonnees(x, y),
+                  this.v));
+          }
         }
       }
     }
