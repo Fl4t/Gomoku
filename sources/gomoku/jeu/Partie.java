@@ -13,9 +13,9 @@ public abstract class Partie {
   protected JoueurAbstrait jNoir = new JoueurHumain(Joueur.NOIR);
   protected JoueurAbstrait jBlanc = new JoueurHumain(Joueur.BLANC);
   protected Plateau plateau;
-  private boolean premierCoup = true;
-  private int doisJouer = Joueur.NOIR;
-  private int gagnant;
+  protected boolean premierCoup = true;
+  protected int doisJouer = Joueur.NOIR;
+  protected int gagnant;
 
   public Partie(JoueurAbstrait jNoir, JoueurAbstrait jBlanc, Plateau plateau) {
     this.jNoir = jNoir;
@@ -27,7 +27,27 @@ public abstract class Partie {
     return this.gagnant;
   }
 
-  public abstract void jouer();
+  public void jouer() {
+    String str;
+    while (this.coupAjouer()) {
+      if (this.getGagnant() == 0) {
+        if (this.demanderDeJouer())
+          this.afficherLaGrille();
+        else
+          this.nePeutPasPlacerIci();
+      } else {
+        if (this.getGagnant() == Joueur.NOIR)
+          str = this.jNoir.couleurIntToString();
+        else
+          str = this.jBlanc.couleurIntToString();
+        this.leJoueurAGagne(str);
+        break;
+      }
+    }
+    if (!this.coupAjouer())
+      this.laPartieEstNulle();
+  }
+
   public abstract void afficherLaGrille();
   public abstract void nePeutPasPlacerIci();
   public abstract void leJoueurAGagne(String str);

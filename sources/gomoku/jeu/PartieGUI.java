@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.event.*;
 import gomoku.jeu.*;
 import gomoku.gui.MouseClic;
+import gomoku.regles.Variante;
+import gomoku.regles.RegleCoup;
 import java.lang.Math;
 
 public class PartieGUI extends Partie {
@@ -18,11 +20,11 @@ public class PartieGUI extends Partie {
     this.component = component;
   }
 
-  public void jouer() {
+  public void jouerAuClic(Coordonnees c) {
     String str;
-    while (this.coupAjouer()) {
+    if (this.coupAjouer()) {
       if (this.getGagnant() == 0) {
-        if (this.demanderDeJouer())
+        if (this.demanderDeJouer(c))
           this.afficherLaGrille();
         else
           this.nePeutPasPlacerIci();
@@ -32,11 +34,28 @@ public class PartieGUI extends Partie {
         else
           str = this.jBlanc.couleurIntToString();
         this.leJoueurAGagne(str);
-        break;
       }
     }
     if (!this.coupAjouer())
       this.laPartieEstNulle();
+  }
+
+  public boolean demanderDeJouer(Coordonnees c) {
+    Variante v = ((Grille)plateau).getVariante();
+    RegleCoup r = v.verifCoup();
+    if (this.premierCoup) {
+      this.premierCoup = false;
+      this.joueurJoue(c);
+      return true;
+    } else {
+      if (r.estValide(c, plateau) &&
+        this.plateau.contenu(c) == Joueur.VIDE)
+      {
+        this.joueurJoue(c);
+        return true;
+      }
+    }
+    return false;
   }
 
   public void nePeutPasPlacerIci() {
@@ -56,11 +75,6 @@ public class PartieGUI extends Partie {
 
   public void afficherLaGrille() {
     this.component.repaint();
-  }
-
-  public void getLesCoordonneesGUI() {
-    MouseListener[] ecouteurs = this.component.getMouseListeners();
-    Coordonnees c = ((MouseClic)ecouteurs[0]).getLesCoordonnees();
-    System.out.println("abscisse : "+c.abscisse()+" ordonnee : "+c.ordonnee());
+    this.component.validate();
   }
 }

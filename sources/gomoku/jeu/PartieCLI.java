@@ -6,27 +6,6 @@ public class PartieCLI extends Partie {
     super(jNoir, jBlanc, plateau);
   }
 
-  public void jouer() {
-    String str;
-    while (this.coupAjouer()) {
-      if (this.getGagnant() == 0) {
-        if (this.demanderDeJouer())
-          this.afficherLaGrille();
-        else
-          this.nePeutPasPlacerIci();
-      } else {
-        if (this.getGagnant() == Joueur.NOIR)
-          str = this.jNoir.couleurIntToString();
-        else
-          str = this.jBlanc.couleurIntToString();
-        this.leJoueurAGagne(str);
-        break;
-      }
-    }
-    if (!this.coupAjouer())
-      this.laPartieEstNulle();
-  }
-
   public void nePeutPasPlacerIci() {
     System.out.println("Vous ne pouvez pas placer ici.");
   }

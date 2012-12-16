@@ -8,7 +8,6 @@ import java.lang.Math;
 public class MouseClic extends MouseAdapter {
 
   private PartieGUI partie;
-  private Coordonnees c;
 
   public MouseClic(PartieGUI p) {
     this.partie = p;
@@ -26,15 +25,7 @@ public class MouseClic extends MouseAdapter {
     int coordY = (int) Math.round((e.getY()-30)/(double) 30);
 
     if(coordX >= 0 && coordX <= 18 && coordY >= 0 && coordY <= 18) {
-      this.setLesCoordonnees(coordX, coordY);
+      this.partie.jouerAuClic(new PierreCoordonnees(coordX, coordY));
     }
-  }
-
-  public void setLesCoordonnees(int x, int y) {
-    this.c = new PierreCoordonnees(x, y);
-  }
-
-  public Coordonnees getLesCoordonnees() {
-    return this.c;
   }
 }

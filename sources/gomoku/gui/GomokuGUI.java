@@ -21,7 +21,5 @@ public class GomokuGUI {
 
     MouseClic me = new MouseClic(partie);
     component.addMouseListener(me);
-
-    partie.jouer();
   }
 }
