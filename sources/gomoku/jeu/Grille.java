@@ -97,6 +97,7 @@ public class Grille implements Plateau {
     int cpt = 0, x, y;
     Set<Alignement> alignV = new HashSet<Alignement>();
     for (x = 0; x < this.largeur; x++) {
+       cpt = 0;
       for (y = 0; y < this.hauteur; y++) {
         if (this.contenu(new PierreCoordonnees(x, y)) == couleur) {
           cpt++;
@@ -125,6 +126,7 @@ public class Grille implements Plateau {
     int cpt = 0, x, y;
     Set<Alignement> alignH = new HashSet<Alignement>();
     for (y = 0; y < this.hauteur; y++) {
+     cpt = 0;
       for (x = 0; x < this.largeur; x++) {
         if (this.contenu(new PierreCoordonnees(x, y)) == couleur) {
           cpt++;
@@ -156,7 +158,11 @@ public class Grille implements Plateau {
     Set<Alignement> alignD = new HashSet<Alignement>();
 
     // parcourt de la première moitiée
-    for (int x = 0; x < this.largeur; x++)
+    for (int x = 0; x < this.largeur; x++) {
+      cpt = 0;
+          for (int i = 0; i < coor.length; i++)
+            coor[i] = null;
+
       for (int y = 0; y < x+1; y++)
         if (this.contenu(new PierreCoordonnees(x-y, y)) == couleur) {
           coor[cpt] = new PierreCoordonnees(x-y, y);
@@ -170,10 +176,14 @@ public class Grille implements Plateau {
           for (int i = 0; i < coor.length; i++)
             coor[i] = null;
         }
+      }
 
     cpt = 0;
     // parcourt de la deuxieme moitiée
-    for (int y = 0; y < this.hauteur-2; y++)
+    for (int y = 0; y < this.hauteur-2; y++) {
+       cpt = 0;
+          for (int i = 0; i < coor.length; i++)
+            coor[i] = null;
       for (int x = this.largeur-1; x > y; x--)
         if (this.contenu(new PierreCoordonnees(x, this.largeur - (x - y))) == couleur) {
           coor[cpt] = new PierreCoordonnees(x, this.largeur - (x - y));
@@ -187,7 +197,7 @@ public class Grille implements Plateau {
           for (int i = 0; i < coor.length; i++)
             coor[i] = null;
         }
-
+      }
     return alignD;
   }
 
@@ -198,7 +208,10 @@ public class Grille implements Plateau {
     Set<Alignement> alignG = new HashSet<Alignement>();
 
     // parcourt de la première moitiée
-    for (int x = this.largeur-1; x >= 0 ; x--)
+    for (int x = this.largeur-1; x >= 0 ; x--) {
+       cpt = 0;
+          for (int i = 0; i < coor.length; i++)
+            coor[i] = null;
       for (int y = 0; y < this.largeur - x; y++)
         if (this.contenu(new PierreCoordonnees(x+y, y)) == couleur) {
           coor[cpt] = new PierreCoordonnees(x+y, y);
@@ -212,9 +225,12 @@ public class Grille implements Plateau {
           for (int i = 0; i < coor.length; i++)
             coor[i] = null;
         }
-
+      }
     // parcourt de la deuxieme moitiée
-    for (int y = this.hauteur-1; y > 0; y--)
+    for (int y = this.hauteur-1; y > 0; y--) {
+       cpt = 0;
+          for (int i = 0; i < coor.length; i++)
+            coor[i] = null;
       for (int x = 0; x < this.hauteur - y; x++)
         if (this.contenu(new PierreCoordonnees(x, y+x)) == couleur) {
           coor[cpt] = new PierreCoordonnees(x, y+x);
@@ -228,7 +244,7 @@ public class Grille implements Plateau {
           for (int i = 0; i < coor.length; i++)
             coor[i] = null;
         }
-
+      }
     return alignG;
   }
 
