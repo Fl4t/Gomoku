@@ -10,8 +10,8 @@ import gomoku.jeu.PierreCoordonnees;
 
 public abstract class Partie {
 
-  protected JoueurAbstrait jNoir = new JoueurHumain(Joueur.NOIR);
-  protected JoueurAbstrait jBlanc = new JoueurHumain(Joueur.BLANC);
+  protected JoueurAbstrait jNoir;
+  protected JoueurAbstrait jBlanc;
   protected Plateau plateau;
   protected boolean premierCoup = true;
   protected int doisJouer = Joueur.NOIR;
