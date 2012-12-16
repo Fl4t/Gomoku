@@ -78,7 +78,7 @@ public abstract class Partie {
     }
     else {
       this.plateau.placer(c, this.jBlanc.couleur());
-      this.jNoir.joueUnePierre();
+      this.jBlanc.joueUnePierre();
     }
     this.verifierCoupGagnant();
   }
