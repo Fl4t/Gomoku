@@ -23,21 +23,18 @@ public class PartieGUI extends Partie {
   public void jouerAuClic(Coordonnees c) {
     String str;
     if (this.coupAjouer()) {
-      if (this.getGagnant() == 0) {
-        if (this.demanderDeJouer(c))
-          this.afficherLaGrille();
-        else
-          this.nePeutPasPlacerIci();
-      } else {
+      if(this.demanderDeJouer(c))
+        this.afficherLaGrille();
+      if (this.gagnant != 0) {
         if (this.getGagnant() == Joueur.NOIR)
           str = this.jNoir.couleurIntToString();
         else
           str = this.jBlanc.couleurIntToString();
         this.leJoueurAGagne(str);
       }
-    }
-    if (!this.coupAjouer())
+    } else {
       this.laPartieEstNulle();
+    }
   }
 
   public boolean demanderDeJouer(Coordonnees c) {
