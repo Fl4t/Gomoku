@@ -1,38 +1,21 @@
 package gomoku.jeu;
 
-public class JoueurHumain implements Joueur {
+import java.util.Scanner;
 
-  /**
-   * couleur attribué au joueur
-   */
-  private int couleur;
-  private int nbCoups;
+public class JoueurHumain extends JoueurAbstrait {
 
-  public JoueurHumain (int c) {
-    this.couleur = c;
-    this.nbCoups = 60;
+  public JoueurHumain(int c) {
+    super(c);
   }
 
-  /**
-   * @override
-   * Couleur du joueur (retourne une des constantes NOIR ou BLANC)
-   */
-  public int couleur() {
-    return this.couleur;
-  }
-
-  /**
-   * Retourne le nombre de coups restants
-   */
-  public int getNbCoups() {
-    return this.nbCoups;
-  }
-
-  /**
-   * Place une pierre et décremente le nombre de coups jouables
-   */
-  public void jouerUnCoup(Plateau p, Coordonnees c) {
-    p.placer(c, this.couleur());
-    this.nbCoups--;
+  public Coordonnees demanderCoorJoueur() {
+    String str = this.couleurIntToString();
+    Scanner sc = new Scanner(System.in);
+    System.out.println("\nJoueur " + str + "\n");
+    System.out.println("Saisir la coordonnée x : ");
+    int coorX = sc.nextInt();
+    System.out.println("Saisir la coordonnée y : ");
+    int coorY = sc.nextInt();
+    return new PierreCoordonnees(coorX, coorY);
   }
 }
