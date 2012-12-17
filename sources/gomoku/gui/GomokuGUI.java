@@ -10,7 +10,7 @@ import gomoku.jeu.*;
 
 public class GomokuGUI {
 
-  public static void main(String[] args) {
+  public GomokuGUI() {
     JoueurAbstrait joueur1 = new JoueurHumain(Joueur.NOIR);
     JoueurAbstrait joueur2 = new JoueurHumain(Joueur.BLANC);
     Plateau p = new Grille(new Gomoku());

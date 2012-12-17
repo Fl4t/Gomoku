@@ -3,6 +3,7 @@
 ./sources/gomoku/gui/Fenetre.java
 ./sources/gomoku/gui/GomokuGUI.java
 ./sources/gomoku/gui/MouseClic.java
+./sources/gomoku/gui/Selection.java
 ./sources/gomoku/jeu/Alignement.java
 ./sources/gomoku/jeu/Coordonnees.java
 ./sources/gomoku/jeu/Grille.java
