@@ -20,12 +20,21 @@ public class MouseClic extends MouseAdapter {
     // On récupère les dimensions en nombre de cases
     int largeur = plateau.largeur();
     int hauteur = plateau.hauteur();
+    int espace = 0;
 
-    int coordX = (int) Math.round((e.getX()-30)/(double) 30);
-    int coordY = (int) Math.round((e.getY()-30)/(double) 30);
+     if(largeur == 3 && hauteur == 3) {
+      espace = 70;
+    }
+    else if (largeur == 19 && hauteur ==19) {
+      espace = 30;
+    }
 
-    if(coordX >= 0 && coordX <= 18 && coordY >= 0 && coordY <= 18) {
+    int coordX = (int) Math.round((e.getX()-espace)/(double) espace);
+    int coordY = (int) Math.round((e.getY()-espace)/(double) espace);
+
+   if(coordX >= 0 && coordX < largeur && coordY >= 0 && coordY < hauteur) {
       this.partie.jouer(new PierreCoordonnees(coordX, coordY));
+
     }
   }
 }

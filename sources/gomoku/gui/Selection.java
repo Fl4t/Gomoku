@@ -55,7 +55,7 @@ public class Selection extends JFrame implements ActionListener {
 
   public Selection () {
 
-    this.setTitle("Animation");
+    this.setTitle("Choix du mode de jeu");
     this.setSize(400, 200);
     this.setResizable(false);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

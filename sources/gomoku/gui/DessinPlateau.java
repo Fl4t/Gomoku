@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class DessinPlateau extends JPanel {
 
-  private int largeur, hauteur;
+  private int largeur, hauteur,espace;
   private Plateau plateau;
   private Image fond, pionBlanc, pionNoir;
 
@@ -36,11 +36,17 @@ public class DessinPlateau extends JPanel {
     }
 
 
-    // On dessine le plateau de jeu	
+    // On regarde si c'est un morpion	
+    if(this.largeur == 3 && this.hauteur == 3) {
+      espace = 70;
+    }
+    else if (this.largeur == 19 && this.hauteur ==19) {
+      espace = 30;
+    }
     for(int iX = 0; iX < this.largeur-1; iX++){
       for(int iY = 0; iY < this.hauteur-1; iY++){          
         g.setColor(Color.BLACK);
-        g.drawRect(30*iX+30, 30*iY+30, 30, 30);
+        g.drawRect(espace*iX+espace, espace*iY+espace, espace, espace);
       }
     }
 
@@ -51,27 +57,22 @@ public class DessinPlateau extends JPanel {
         if(plateau.contenu(new PierreCoordonnees(iX,iY)) == Joueur.NOIR) {
           try {  
             pionNoir = ImageIO.read(new File("images/pion_noir.png"));
-            g.drawImage(pionNoir,((iX+1)*30)-15, ((iY+1)*30)-15, this);   
+            g.drawImage(pionNoir,((iX+1)*espace)-15, ((iY+1)*espace)-15, this);   
           }
           catch (IOException e) {
             e.printStackTrace();
           }    
-          //g.setColor(Color.BLACK);  
-          //g.fillOval(((iX+1)*30)-15, ((iY+1)*30)-15, 30, 30);             
+          
         }
         // Si l'emplacement contient la couleur BLANC, on dessine une pierre BLANCHE
         if(plateau.contenu(new PierreCoordonnees(iX,iY)) == Joueur.BLANC) {   
           try {  
             pionBlanc = ImageIO.read(new File("images/pion_blanc.png"));
-            g.drawImage(pionBlanc,((iX+1)*30)-15, ((iY+1)*30)-15, this);   
+            g.drawImage(pionBlanc,((iX+1)*espace)-15, ((iY+1)*espace)-15, this);   
           }
           catch (IOException e) {
             e.printStackTrace();
           }    
-          //g.setColor(Color.WHITE);
-          // g.fillOval(((iX+1)*30)-15, ((iY+1)*30)-15, 30, 30);              
-          // g.setColor(Color.BLACK);
-          //g.drawOval(((iX+1)*30)-15, ((iY+1)*30)-15, 30, 30); 
         }
       }
     }

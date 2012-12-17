@@ -14,10 +14,23 @@ public class Fenetre extends JFrame {
 
   public Fenetre(Plateau p) {
 
-    //Définit un titre pour notre fenêtre
-    this.setTitle("Gomoku");
-    //Définit sa taille : 500 pixels de large et 500 pixels de haut
-    this.setSize(605,640);
+    int hauteur = p.hauteur();
+    int largeur = p.largeur();
+   
+     
+    if(largeur == 19 && hauteur == 19) {
+        // Définit sa taille
+        this.setSize(605,640);
+        // Définit un titre pour notre fenêtre
+        this.setTitle("Gomoku");
+    }
+
+     if(largeur == 3 && hauteur == 3) {
+        // Définit sa taille
+        this.setSize(290,320);
+        // Définit un titre pour notre fenêtre
+        this.setTitle("Morpion");
+    }
     //Nous demandons maintenant à notre objet de se positionner au centre
     this.setLocationRelativeTo(null);
     //Termine le processus lorsqu'on clique sur la croix rouge
@@ -37,7 +50,7 @@ public class Fenetre extends JFrame {
 
     // On ajoute l'evenement fermet l'application à l'objet Quitter du menu
     itemQuitter.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent arg0) {
+      public void actionPerformed(ActionEvent e) {
         System.exit(0);
       }
     });
