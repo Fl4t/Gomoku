@@ -6,7 +6,9 @@ import gomoku.jeu.*;
 public class GomokuCLI {
 
   public GomokuCLI(JoueurAbstrait j1, JoueurAbstrait j2) {
-    Partie partie = new PartieCLI(j1, j2, new Grille(new Gomoku()));
-    partie.jouer(null);
+    Plateau plateau = new Grille(new Gomoku());
+    Partie partie = new Partie(j1, j2,
+        plateau,
+        new VisuelCLI(plateau));
   }
 }

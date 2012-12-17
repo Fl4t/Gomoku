@@ -8,20 +8,23 @@ import gomoku.jeu.Plateau;
 import gomoku.jeu.Grille;
 import gomoku.jeu.PierreCoordonnees;
 
-public abstract class Partie {
+public class Partie {
 
-  protected JoueurAbstrait jNoir;
-  protected JoueurAbstrait jBlanc;
-  protected Plateau plateau;
-  protected boolean premierCoup = true;
-  protected int doisJouer = Joueur.NOIR;
-  protected int gagnant;
-  protected String CLIouGUI;
+  private JoueurAbstrait jNoir;
+  private JoueurAbstrait jBlanc;
+  private Plateau plateau;
+  private boolean premierCoup = true;
+  private int doisJouer = Joueur.NOIR;
+  private int gagnant;
+  private String CLIouGUI;
+  private Visuel visualiser;
 
-  public Partie(JoueurAbstrait jNoir, JoueurAbstrait jBlanc, Plateau plateau) {
+  public Partie(JoueurAbstrait jNoir, JoueurAbstrait jBlanc, Plateau plateau,
+      Visuel visualiser) {
     this.jNoir = jNoir;
     this.jBlanc = jBlanc;
     this.plateau = plateau;
+    this.visualiser = visualiser;
   }
 
   public int getGagnant() {
@@ -36,25 +39,21 @@ public abstract class Partie {
     String str;
     if (this.coupAjouer()) {
       if(this.demanderDeJouer(c))
-        this.afficherLaGrille();
+        this.visualiser.afficherLaGrille();
       if (this.gagnant != 0) {
         if (this.getGagnant() == Joueur.NOIR)
           str = this.jNoir.couleurIntToString();
         else
           str = this.jBlanc.couleurIntToString();
-        this.leJoueurAGagne(str);
+        this.visualiser.leJoueurAGagne(str);
       } else {
         if (this.CLIouGUI.equals("CLI"))
           this.jouer(null);
       }
     } else {
-      this.laPartieEstNulle();
+      this.visualiser.laPartieEstNulle();
     }
   }
-
-  public abstract void afficherLaGrille();
-  public abstract void leJoueurAGagne(String str);
-  public abstract void laPartieEstNulle();
 
   public boolean coupAjouer() {
     if (!(this.jNoir.getNbCoups() == 0

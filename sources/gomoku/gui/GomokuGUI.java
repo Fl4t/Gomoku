@@ -15,7 +15,7 @@ public class GomokuGUI {
     Fenetre f = new Fenetre(p);
     JComponent component = f.getDessinPlateau();
 
-    PartieGUI partie = new PartieGUI(j1, j2, p, component);
+    Partie partie = new Partie(j1, j2, p, new VisuelGUI(component));
 
     MouseClic me = new MouseClic(partie);
     component.addMouseListener(me);

@@ -7,9 +7,9 @@ import java.lang.Math;
 
 public class MouseClic extends MouseAdapter {
 
-  private PartieGUI partie;
+  private Partie partie;
 
-  public MouseClic(PartieGUI p) {
+  public MouseClic(Partie p) {
     this.partie = p;
   }
 

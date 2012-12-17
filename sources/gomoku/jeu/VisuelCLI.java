@@ -1,11 +1,12 @@
 package gomoku.jeu;
 
-public class PartieCLI extends Partie {
+public class VisuelCLI implements Visuel {
 
-  public PartieCLI(JoueurAbstrait jNoir, JoueurAbstrait jBlanc, Plateau plateau) {
-    super(jNoir, jBlanc, plateau);
+  private Plateau plateau;
+
+  public VisuelCLI(Plateau plateau) {
+    this.plateau = plateau;
   }
-
   public void leJoueurAGagne(String str) {
     System.out.println("félicitation au joueur " + str);
   }

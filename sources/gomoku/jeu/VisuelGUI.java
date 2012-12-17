@@ -2,21 +2,12 @@ package gomoku.jeu;
 
 import javax.swing.JOptionPane;
 import javax.swing.JComponent;
-import javax.swing.*;
-import java.awt.event.*;
-import gomoku.jeu.*;
-import gomoku.gui.MouseClic;
-import gomoku.regles.Variante;
-import gomoku.regles.RegleCoup;
-import java.lang.Math;
 
-public class PartieGUI extends Partie {
+public class VisuelGUI implements Visuel {
 
   private JComponent component;
 
-  public PartieGUI(JoueurAbstrait jNoir, JoueurAbstrait jBlanc,
-      Plateau plateau, JComponent component) {
-    super(jNoir, jBlanc, plateau);
+  public VisuelGUI(JComponent component) {
     this.component = component;
   }
 
