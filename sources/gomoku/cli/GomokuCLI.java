@@ -5,12 +5,8 @@ import gomoku.jeu.*;
 
 public class GomokuCLI {
 
-  public GomokuCLI() {
-    JoueurAbstrait joueur1 = new JoueurHumain(Joueur.NOIR);
-    JoueurAbstrait joueur2 = new JoueurHumain(Joueur.BLANC);
-    Partie partie = new PartieCLI(joueur1, joueur2,
-        new Grille(new Gomoku()));
-
+  public GomokuCLI(JoueurAbstrait j1, JoueurAbstrait j2) {
+    Partie partie = new PartieCLI(j1, j2, new Grille(new Gomoku()));
     partie.jouer();
   }
 }

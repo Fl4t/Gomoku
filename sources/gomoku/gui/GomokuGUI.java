@@ -10,14 +10,12 @@ import gomoku.jeu.*;
 
 public class GomokuGUI {
 
-  public GomokuGUI() {
-    JoueurAbstrait joueur1 = new JoueurHumain(Joueur.NOIR);
-    JoueurAbstrait joueur2 = new JoueurHumain(Joueur.BLANC);
+  public GomokuGUI(JoueurAbstrait j1, JoueurAbstrait j2) {
     Plateau p = new Grille(new Gomoku());
     Fenetre f = new Fenetre(p);
     JComponent component = f.getDessinPlateau();
 
-    PartieGUI partie = new PartieGUI(joueur1, joueur2, p, component);
+    PartieGUI partie = new PartieGUI(j1, j2, p, component);
 
     MouseClic me = new MouseClic(partie);
     component.addMouseListener(me);
