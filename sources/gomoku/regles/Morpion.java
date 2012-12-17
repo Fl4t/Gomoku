@@ -4,7 +4,7 @@ package gomoku.regles ;
 public class Morpion extends Variante {
   public Morpion() {
     super(3, 3, // plateau 3x3 intersections
-        new RegleCoup(new Moore(), 1), // on joue à distance 1
+        new RegleCoup(new Moore(), 2), // on joue à distance 2
         // dans le voisinage de
         // Moore des pierres déjà
         // jouées
@@ -13,7 +13,7 @@ public class Morpion extends Variante {
     // l'extrémité d'un
     // alignement mais
     // il doit comporter
-    // exactement 5
+    // exactement 3
     // pierres
   }
 }
