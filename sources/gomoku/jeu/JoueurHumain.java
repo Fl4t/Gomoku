@@ -8,7 +8,7 @@ public class JoueurHumain extends JoueurAbstrait {
     super(c);
   }
 
-  public Coordonnees demanderCoorJoueur() {
+  public Coordonnees demanderCoorJoueur(Partie p) {
     String str = this.couleurIntToString();
     Scanner sc = new Scanner(System.in);
     System.out.println("\nJoueur " + str + "\n");

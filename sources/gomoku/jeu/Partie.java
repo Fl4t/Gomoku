@@ -62,8 +62,8 @@ public abstract class Partie {
 
   public Coordonnees demanderCoor() {
     return this.aLaMain(Joueur.BLANC) ?
-      this.jBlanc.demanderCoorJoueur() :
-      this.jNoir.demanderCoorJoueur();
+      this.jBlanc.demanderCoorJoueur(this) :
+      this.jNoir.demanderCoorJoueur(this);
   }
 
   public boolean aLaMain(int couleur) {

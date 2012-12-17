@@ -29,7 +29,7 @@ public abstract class JoueurAbstrait implements Joueur {
     return this.nbCoups--;
   }
 
-  public abstract Coordonnees demanderCoorJoueur();
+  public abstract Coordonnees demanderCoorJoueur(Partie p);
 
   public String couleurIntToString() {
     return this.couleur == Joueur.NOIR ? "NOIR" : "BLANC";
