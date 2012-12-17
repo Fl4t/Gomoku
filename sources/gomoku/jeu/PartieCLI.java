@@ -6,10 +6,6 @@ public class PartieCLI extends Partie {
     super(jNoir, jBlanc, plateau);
   }
 
-  public void nePeutPasPlacerIci() {
-    System.out.println("Vous ne pouvez pas placer ici.");
-  }
-
   public void leJoueurAGagne(String str) {
     System.out.println("félicitation au joueur " + str);
   }

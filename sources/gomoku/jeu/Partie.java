@@ -16,6 +16,7 @@ public abstract class Partie {
   protected boolean premierCoup = true;
   protected int doisJouer = Joueur.NOIR;
   protected int gagnant;
+  protected String CLIouGUI;
 
   public Partie(JoueurAbstrait jNoir, JoueurAbstrait jBlanc, Plateau plateau) {
     this.jNoir = jNoir;
@@ -27,29 +28,31 @@ public abstract class Partie {
     return this.gagnant;
   }
 
-  public void jouer() {
+  public void jouer(Coordonnees c) {
+    if (c == null)
+      this.CLIouGUI = "CLI";
+    else
+      this.CLIouGUI = "GUI";
     String str;
-    while (this.coupAjouer()) {
-      if (this.getGagnant() == 0) {
-        if (this.demanderDeJouer())
-          this.afficherLaGrille();
-        else
-          this.nePeutPasPlacerIci();
-      } else {
+    if (this.coupAjouer()) {
+      if(this.demanderDeJouer(c))
+        this.afficherLaGrille();
+      if (this.gagnant != 0) {
         if (this.getGagnant() == Joueur.NOIR)
           str = this.jNoir.couleurIntToString();
         else
           str = this.jBlanc.couleurIntToString();
         this.leJoueurAGagne(str);
-        break;
+      } else {
+        if (this.CLIouGUI.equals("CLI"))
+          this.jouer(null);
       }
-    }
-    if (!this.coupAjouer())
+    } else {
       this.laPartieEstNulle();
+    }
   }
 
   public abstract void afficherLaGrille();
-  public abstract void nePeutPasPlacerIci();
   public abstract void leJoueurAGagne(String str);
   public abstract void laPartieEstNulle();
 
@@ -61,26 +64,28 @@ public abstract class Partie {
   }
 
   public Coordonnees demanderCoor() {
-    return this.aLaMain(Joueur.BLANC) ?
-      this.jBlanc.demanderCoorJoueur(this) :
-      this.jNoir.demanderCoorJoueur(this);
+    if (this.aLaMain(Joueur.NOIR))
+      return this.jNoir.demanderCoorJoueur(this);
+    else
+      return this.jBlanc.demanderCoorJoueur(this);
   }
 
   public boolean aLaMain(int couleur) {
     return couleur == this.doisJouer ? true : false;
   }
 
-  public boolean demanderDeJouer() {
-    Coordonnees c = null;
+  public boolean demanderDeJouer(Coordonnees c) {
     Variante v = ((Grille)plateau).getVariante();
     RegleCoup r = v.verifCoup();
     if (this.premierCoup) {
       this.premierCoup = false;
-      c = this.demanderCoor();
+      if (c == null)
+        c = this.demanderCoor();
       this.joueurJoue(c);
       return true;
     } else {
-      c = this.demanderCoor();
+      if (c == null)
+        c = this.demanderCoor();
       if (r.estValide(c, plateau) &&
         this.plateau.contenu(c) == Joueur.VIDE)
       {
@@ -109,6 +114,7 @@ public abstract class Partie {
   }
 
   public void verifierCoupGagnant() {
+    Coordonnees c;
     Variante v = ((Grille)this.plateau).getVariante();
     RegleAlignement regle = v.verifAlignement();
     Set<Alignement> align = plateau.rechercherAlignements(this.doisJouer,
@@ -117,8 +123,20 @@ public abstract class Partie {
       if (regle.estGagnant(a, this.plateau))
         this.gagnant = this.doisJouer;
     }
-    if (this.gagnant == 0)
+    if (this.gagnant == 0) {
       this.donnerLaMain();
+      if (this.aLaMain(Joueur.BLANC)) {
+        if (this.blancEstUneIA()) {
+          c = this.demanderCoor();
+          this.joueurJoue(c);
+        }
+      }
+    }
+  }
+
+  private boolean blancEstUneIA() {
+    return this.jBlanc.getClass().getName() ==
+      "gomoku.jeu.JoueurCybernetique" ? true : false;
   }
 
   public Plateau getPlateau() {

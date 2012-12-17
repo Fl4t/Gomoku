@@ -25,7 +25,7 @@ public class MouseClic extends MouseAdapter {
     int coordY = (int) Math.round((e.getY()-30)/(double) 30);
 
     if(coordX >= 0 && coordX <= 18 && coordY >= 0 && coordY <= 18) {
-      this.partie.jouerAuClic(new PierreCoordonnees(coordX, coordY));
+      this.partie.jouer(new PierreCoordonnees(coordX, coordY));
     }
   }
 }
