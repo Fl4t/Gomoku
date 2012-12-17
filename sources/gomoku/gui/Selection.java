@@ -4,6 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.BoxLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import gomoku.cli.*;
@@ -16,8 +17,9 @@ public class Selection extends JFrame implements ActionListener {
   private JPanel pan2 = new JPanel();
   private JPanel pan3 = new JPanel();
   private JPanel pan4 = new JPanel();
-  pan1.setLayout(new BoxLayout(pan1, BoxLayout.LINE_AXIS));
-  pan1.add(labelC);
+  private JPanel pan5 = new JPanel();
+  
+  
   // les bouttons
   private JButton boutonIA = new JButton("Jouer contre l'IA");
   private JButton boutonH = new JButton("Jouer contre un ami");
@@ -27,6 +29,8 @@ public class Selection extends JFrame implements ActionListener {
   // les labels
   private JLabel labelG = new JLabel("Mode Graphique :");
   private JLabel labelC = new JLabel("Mode M.Beaufils :");
+
+ 
 
   // les joueurs humains
   private JoueurAbstrait jh1 = new JoueurHumain(Joueur.NOIR);
@@ -52,7 +56,8 @@ public class Selection extends JFrame implements ActionListener {
   public Selection () {
 
     this.setTitle("Animation");
-    this.setSize(400, 300);
+    this.setSize(400, 200);
+    this.setResizable(false);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLocationRelativeTo(null);
 
@@ -61,14 +66,18 @@ public class Selection extends JFrame implements ActionListener {
     boutonIAG.addActionListener(this);
     boutonHG.addActionListener(this);
 
-    pan.add(labelC);
-    pan.add(boutonIA);
-    pan.add(boutonH);
-    pan.add(labelG);
-    pan.add(boutonIAG);
-    pan.add(boutonHG);
+    pan1.add(labelC);
+    pan2.add(boutonIA);
+    pan2.add(boutonH);
+    pan3.add(labelG);
+    pan4.add(boutonIAG);
+    pan4.add(boutonHG);
+    pan5.add(pan1);
+    pan5.add(pan2);
+    pan5.add(pan3);
+    pan5.add(pan4);
 
-    this.setContentPane(pan);
+    this.setContentPane(pan5);
     this.setVisible(true);
   }
 
