@@ -1,3 +1,8 @@
+/**
+ * @author julien Stechele et Thomas Ruchon
+ * @version 1.0
+ */
+
 package gomoku.gui;
 
 import javax.swing.JButton;
@@ -11,6 +16,7 @@ import gomoku.cli.*;
 import gomoku.jeu.*;
 import gomoku.regles.*;
 
+/** Cette classe permet d'instancier la fenêtre principale de l'application */
 public class Selection extends JFrame implements ActionListener {
 
   // le panel
@@ -47,25 +53,27 @@ public class Selection extends JFrame implements ActionListener {
 
   public void actionPerformed(ActionEvent e) {
     if ((JButton)e.getSource() == boutonIA)
-      new GomokuCLI(jh1, jIA2, pG);
+      new JeuCLI(jh1, jIA2, pG);
     else if ((JButton)e.getSource() == boutonH)
-      new GomokuCLI(jh1, jh2, pG);
+      new JeuCLI(jh1, jh2, pG);
     else if ((JButton)e.getSource() == boutonIAG)
-      new GomokuGUI(jh1, jIA2, pG);
+      new JeuGUI(jh1, jIA2, pG);
     else if ((JButton)e.getSource() == boutonHG)
-      new GomokuGUI(jh1, jh2, pG);
+      new JeuGUI(jh1, jh2, pG);
     else if ((JButton)e.getSource() == boutonIAM)
-      new GomokuCLI(jh1, jIA2, pM);
+      new JeuCLI(jh1, jIA2, pM);
     else if ((JButton)e.getSource() == boutonHM)
-      new GomokuCLI(jh1, jh2,  pM);
+      new JeuCLI(jh1, jh2,  pM);
     else if ((JButton)e.getSource() == boutonIAGM)
-      new GomokuGUI(jh1, jIA2, pM);
+      new JeuGUI(jh1, jIA2, pM);
     else if ((JButton)e.getSource() == boutonHGM)
-      new GomokuGUI(jh1, jh2,  pM);
+      new JeuGUI(jh1, jh2,  pM);
     this.dispose();
     this.setVisible(false);
   }
 
+  /** Constructeur de Selection permetant l'instanciation
+   * de la fenêtre principale. */
   public Selection () {
 
     this.setTitle("Choix du mode de jeu");
@@ -104,6 +112,7 @@ public class Selection extends JFrame implements ActionListener {
     this.setVisible(true);
   }
 
+  /** Methode principale du programme */
   public static void main (String[] args) {
     Selection s = new Selection();
   }

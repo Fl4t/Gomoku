@@ -1,7 +1,16 @@
+/**
+ * @author julien Stechele et Thomas Ruchon
+ * @version 1.0
+ */
+
 package gomoku.regles ;
 
-/** Cette classe décrit les caractéristiques du Morpion classique. */
+/** Cette classe décrit les caractéristiques du
+ * Morpion classique. */
 public class Morpion extends Variante {
+
+  /** Constructeur permettant d'instancier
+   * la variante Morpion */
   public Morpion() {
     super(3, 3, // plateau 3x3 intersections
         new RegleCoup(new Moore(), 2), // on joue à distance 2

@@ -1,3 +1,8 @@
+/**
+ * @author julien Stechele et Thomas Ruchon
+ * @version 1.0
+ */
+
 package gomoku.gui;
 
 import javax.swing.JPanel;
@@ -8,28 +13,31 @@ import java.awt.*;
 import gomoku.regles.*;
 import gomoku.jeu.*;
 
+/** Class Fenetre représentant le jeu en
+ * mode GUI (Graphical User Interface) */
 public class Fenetre extends JFrame {
 
+  /** Composant interne de la JFrame */
   private JComponent component;
 
+  /** Constructeur de la Fenetre */
   public Fenetre(Plateau p) {
 
     int hauteur = p.hauteur();
     int largeur = p.largeur();
-   
-     
+
     if(largeur == 19 && hauteur == 19) {
-        // Définit sa taille
-        this.setSize(605,640);
-        // Définit un titre pour notre fenêtre
-        this.setTitle("Gomoku");
+      // Définit sa taille
+      this.setSize(605,640);
+      // Définit un titre pour notre fenêtre
+      this.setTitle("Gomoku");
     }
 
-     if(largeur == 3 && hauteur == 3) {
-        // Définit sa taille
-        this.setSize(290,320);
-        // Définit un titre pour notre fenêtre
-        this.setTitle("Morpion");
+    if(largeur == 3 && hauteur == 3) {
+      // Définit sa taille
+      this.setSize(290,320);
+      // Définit un titre pour notre fenêtre
+      this.setTitle("Morpion");
     }
     //Nous demandons maintenant à notre objet de se positionner au centre
     this.setLocationRelativeTo(null);
@@ -68,6 +76,8 @@ public class Fenetre extends JFrame {
     this.setVisible(true);
   }
 
+  /** Méthode permettant de retourner les composants
+   * @return JComponent */
   public JComponent getDessinPlateau() {
     return this.component;
   }

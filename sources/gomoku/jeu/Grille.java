@@ -1,3 +1,8 @@
+/**
+ * @author julien Stechele et Thomas Ruchon
+ * @version 1.0
+ */
+
 package gomoku.jeu;
 
 import java.util.Set;
@@ -7,16 +12,23 @@ import gomoku.regles.Variante;
 import gomoku.jeu.Alignement;
 import gomoku.regles.RegleCoup;
 
-/**
- * Cette classe implémente l'interface Plateau
- */
+/** Classe Partie implémentant plateau */
 public class Grille implements Plateau {
 
+  /** La grille du jeu */
   private int jeu[][];
+
+  /** La largeur de la grille */
   private int largeur;
+
+  /** La hauteur de la grille */
   private int hauteur;
+
+  /** La variante de la grille */
   private Variante v;
 
+  /** Constructeur permettant d'instancer la grille
+   * @param jeu la variante souhaitée */
   public Grille(Variante jeu) {
     this.v = jeu;
     this.largeur = jeu.largeur();
@@ -34,30 +46,16 @@ public class Grille implements Plateau {
     return this.hauteur;
   }
 
-  /** Donne la couleur de la pierre située à la position spécifiée.
-   * @param c coordonnées de la position à tester
-   * @return Joueur.NOIR, Joueur.BLANC ou Joueur.VIDE */
   public int contenu(Coordonnees c) {
     return jeu[c.abscisse()][c.ordonnee()];
   }
 
-  /** Place une pierre de la couleur spécifiée à la position
-   * indiquée. Ne fait rien si les coordonnées sont incorrectes.
-   * @param c coordonnées de la position à modifier
-   * @param couleur couleur de la pierre (Joueur.NOIR ou
-   * Joueur.BLANC ; on peut aussi utiliser Joueur.VIDE pour
-   * supprimer une pierre) */
   public void placer(Coordonnees c, int couleur) {
     if (c.abscisse() < this.largeur &&
         c.ordonnee() < this.hauteur)
       jeu[c.abscisse()][c.ordonnee()] = couleur;
   }
 
-  /** Calcule les positions voisines de la position spécifiée,
-   * jusqu'à la distance spécifiée
-   * @param c coordonnées de la position dont on veut calculer les voisines
-   * @param dist distance maximale pour calculer le voisinage
-   * @return l'ensemble des coordonnées des positions voisines */
   public Set<Coordonnees> voisins(Coordonnees c, int dist) {
     Set<Coordonnees> coorVoisines = new HashSet<Coordonnees>();
     for (int i = c.abscisse() - dist; i <= c.abscisse() + dist; i++)
@@ -67,12 +65,6 @@ public class Grille implements Plateau {
     return coorVoisines;
   }
 
-  /** Calcule, pour le joueur de la couleur spécifiée, l'ensemble
-   * des alignements de pierres de ce joueur qui ont
-   * <b>exactement</b> la taille indiquée.
-   * @param couleur la couleur des pierres à tester
-   * @param taille le nombre de pierres qui doivent être alignées
-   * @return l'ensemble des alignements touvés */
   public Set<Alignement> rechercherAlignements(int couleur, int taille) {
     Set<Alignement> alignTrouvees = new HashSet<Alignement>();
     alignTrouvees = this.concatenerLesHashSet(alignTrouvees,
@@ -86,17 +78,20 @@ public class Grille implements Plateau {
     return alignTrouvees;
   }
 
+  /** Méthode permettant de concaténer les alignements trouvées dans les
+   * méthodes horizontal, vertical, deDroiteAGauche, deGaucheADroite */
   private Set<Alignement> concatenerLesHashSet(Set<Alignement> englobante, Set<Alignement> englobee) {
     for(Alignement a: englobee)
       englobante.add(a);
     return englobante;
   }
 
+  /** Méthode permettant de trouver les alignements verticaux. */
   public Set<Alignement> vertical(int couleur, int taille) {
     int cpt = 0;
     Set<Alignement> alignV = new HashSet<Alignement>();
     for (int x = 0; x < this.largeur; x++) {
-       cpt = 0;
+      cpt = 0;
       for (int y = 0; y < this.hauteur; y++) {
         if (this.contenu(new PierreCoordonnees(x, y)) == couleur) {
           cpt++;
@@ -121,11 +116,12 @@ public class Grille implements Plateau {
     return alignV;
   }
 
+  /** Méthode permettant de trouver les alignements horizontaux. */
   public Set<Alignement> horizontal(int couleur, int taille) {
     int cpt = 0;
     Set<Alignement> alignH = new HashSet<Alignement>();
     for (int y = 0; y < this.hauteur; y++) {
-     cpt = 0;
+      cpt = 0;
       for (int x = 0; x < this.largeur; x++) {
         if (this.contenu(new PierreCoordonnees(x, y)) == couleur) {
           cpt++;
@@ -150,6 +146,8 @@ public class Grille implements Plateau {
     return alignH;
   }
 
+  /** Méthode permettant de trouver les alignements diagonaux de
+   * droite vers la gauche. */
   public Set<Alignement> deDroiteAGauche(int couleur, int taille) {
 
     int cpt = 0;
@@ -159,8 +157,8 @@ public class Grille implements Plateau {
     // parcours de la première moitiée
     for (int x = 0; x < this.largeur; x++) {
       cpt = 0;
-          for (int i = 0; i < coor.length; i++)
-            coor[i] = null;
+      for (int i = 0; i < coor.length; i++)
+        coor[i] = null;
 
       for (int y = 0; y < x+1; y++)
         if (this.contenu(new PierreCoordonnees(x-y, y)) == couleur) {
@@ -185,12 +183,12 @@ public class Grille implements Plateau {
           for (int i = 0; i < coor.length; i++)
             coor[i] = null;
         }
-      }
+    }
     // parcours de la deuxieme moitiée
     for (int y = this.hauteur-1; y > 0; y--) {
-       cpt = 0;
-          for (int i = 0; i < coor.length; i++)
-            coor[i] = null;
+      cpt = 0;
+      for (int i = 0; i < coor.length; i++)
+        coor[i] = null;
       for (int x = this.largeur-1; x >= y; x--)
         if (this.contenu(new PierreCoordonnees(x, (this.hauteur-1) - (x - y))) == couleur) {
           coor[cpt] = new PierreCoordonnees(x, this.hauteur - (x - y));
@@ -213,10 +211,12 @@ public class Grille implements Plateau {
           for (int i = 0; i < coor.length; i++)
             coor[i] = null;
         }
-      }
+    }
     return alignD;
   }
 
+  /** Méthode permettant de trouver les alignements diagonaux de gauche
+   * vers la droite. */
   public Set<Alignement> deGaucheADroite(int couleur, int taille) {
 
     int cpt = 0;
@@ -225,9 +225,9 @@ public class Grille implements Plateau {
 
     // parcours de la première moitiée
     for (int x = this.largeur-1; x >= 0 ; x--) {
-       cpt = 0;
-          for (int i = 0; i < coor.length; i++)
-            coor[i] = null;
+      cpt = 0;
+      for (int i = 0; i < coor.length; i++)
+        coor[i] = null;
       for (int y = 0; y < this.largeur - x; y++)
         if (this.contenu(new PierreCoordonnees(x+y, y)) == couleur) {
           coor[cpt] = new PierreCoordonnees(x+y, y);
@@ -249,18 +249,18 @@ public class Grille implements Plateau {
           for (int i = 0; i < coor.length; i++)
             coor[i] = null;
         }
-      }
+    }
     // parcours de la deuxieme moitiée
     for (int y = this.hauteur-1; y > 0; y--) {
-       cpt = 0;
-          for (int i = 0; i < coor.length; i++)
-            coor[i] = null;
+      cpt = 0;
+      for (int i = 0; i < coor.length; i++)
+        coor[i] = null;
       for (int x = 0; x < this.hauteur - y; x++)
         if (this.contenu(new PierreCoordonnees(x, y+x)) == couleur) {
           coor[cpt] = new PierreCoordonnees(x, y+x);
           if (cpt == taille-1) {
-            if(x+1 < this.largeur && y+x+1 < this.hauteur) {  
-               if(this.contenu(new PierreCoordonnees(x+1,y+x+1)) != couleur) {
+            if(x+1 < this.largeur && y+x+1 < this.hauteur) {
+              if(this.contenu(new PierreCoordonnees(x+1,y+x+1)) != couleur) {
                 alignG.add(new VecteurAlignement(coor[0], coor[cpt], this.v));
               }
               else
@@ -276,15 +276,10 @@ public class Grille implements Plateau {
           for (int i = 0; i < coor.length; i++)
             coor[i] = null;
         }
-      }
+    }
     return alignG;
   }
 
-  /** Calcule, pour le joueur de la couleur spécifiée, l'ensemble
-   * des positions où il est autorisé à jouer.
-   * @param couleur la couleur du joueur
-   * @return un ensemble de cases libres où le joueur peut poser une
-   * pierre */
   public Set<Coordonnees> casesJouables(int couleur) {
     RegleCoup regle = v.verifCoup();
     Set<Coordonnees> coorJouables = new HashSet<Coordonnees>();
@@ -295,10 +290,7 @@ public class Grille implements Plateau {
     return coorJouables;
   }
 
-  /**
-   * Methode toString.
-   * Affiche le tableau dans la console
-   */
+  /** Affiche le tableau dans la console */
   public String toString() {
     String ret = "";
     for (int y = 0; y < this.hauteur(); y++) {
@@ -317,6 +309,8 @@ public class Grille implements Plateau {
     return ret;
   }
 
+  /** Permet de retourner la variante de la grille
+   * @return Variante */
   public Variante getVariante() {
     return v;
   }

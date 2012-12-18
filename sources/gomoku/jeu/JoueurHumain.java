@@ -1,17 +1,21 @@
+/**
+ * @author julien Stechele et Thomas Ruchon
+ * @version 1.0
+ */
+
 package gomoku.jeu;
 
 import java.util.Scanner;
 
+/** Classe représentant un joueur Humain */
 public class JoueurHumain extends JoueurAbstrait {
 
+  /** Constructeur permettant d'instancier un joueur
+   * humain. */
   public JoueurHumain(int c) {
     super(c);
   }
 
-/** Demande les coordonnées au joueur
-  * @param la partie
-  * @return les coordonnées où il va placer la pierre
-  */
   public Coordonnees demanderCoorJoueur(Partie partie) {
     String str = this.couleurIntToString();
     Scanner sc = new Scanner(System.in);

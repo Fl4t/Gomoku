@@ -1,3 +1,8 @@
+/**
+ * @author julien Stechele et Thomas Ruchon
+ * @version 1.0
+ */
+
 package gomoku.gui;
 
 import javax.swing.JPanel;
@@ -8,9 +13,11 @@ import java.awt.*;
 import gomoku.regles.*;
 import gomoku.jeu.*;
 
-public class GomokuGUI {
+/** Le jeu en mode GUI (Graphical User Interface) */
+public class JeuGUI {
 
-  public GomokuGUI(JoueurAbstrait j1, JoueurAbstrait j2, Plateau plateau) {
+  /** Constructeur du jeu en mode GUI */
+  public JeuGUI(JoueurAbstrait j1, JoueurAbstrait j2, Plateau plateau) {
 
     Fenetre f = new Fenetre(plateau);
 
