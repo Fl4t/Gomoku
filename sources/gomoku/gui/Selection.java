@@ -42,23 +42,26 @@ public class Selection extends JFrame implements ActionListener {
   private JoueurAbstrait jIA1 = new JoueurCybernetique(Joueur.NOIR);
   private JoueurAbstrait jIA2 = new JoueurCybernetique(Joueur.BLANC);
 
+  private Plateau pM = new Grille(new Morpion());
+  private Plateau pG = new Grille(new Gomoku());
+
   public void actionPerformed(ActionEvent e) {
     if ((JButton)e.getSource() == boutonIA)
-      new GomokuCLI(jh1, jIA2, "Gomoku");
+      new GomokuCLI(jh1, jIA2, pG);
     else if ((JButton)e.getSource() == boutonH)
-      new GomokuCLI(jh1, jh2, "Gomoku");
+      new GomokuCLI(jh1, jh2, pG);
     else if ((JButton)e.getSource() == boutonIAG)
-      new GomokuGUI(jh1, jIA2, "Gomoku");
+      new GomokuGUI(jh1, jIA2, pG);
     else if ((JButton)e.getSource() == boutonHG)
-      new GomokuGUI(jh1, jh2, "Gomoku");
+      new GomokuGUI(jh1, jh2, pG);
     else if ((JButton)e.getSource() == boutonIAM)
-      new GomokuCLI(jh1, jIA2, "Morpion");
+      new GomokuCLI(jh1, jIA2, pM);
     else if ((JButton)e.getSource() == boutonHM)
-      new GomokuCLI(jh1, jh2,  "Morpion");
+      new GomokuCLI(jh1, jh2,  pM);
     else if ((JButton)e.getSource() == boutonIAGM)
-      new GomokuGUI(jh1, jIA2, "Morpion");
+      new GomokuGUI(jh1, jIA2, pM);
     else if ((JButton)e.getSource() == boutonHGM)
-      new GomokuGUI(jh1, jh2,  "Morpion");
+      new GomokuGUI(jh1, jh2,  pM);
     this.dispose();
     this.setVisible(false);
   }

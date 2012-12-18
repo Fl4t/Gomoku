@@ -10,20 +10,13 @@ import gomoku.jeu.*;
 
 public class GomokuGUI {
 
-  public GomokuGUI(JoueurAbstrait j1, JoueurAbstrait j2, String type) {
+  public GomokuGUI(JoueurAbstrait j1, JoueurAbstrait j2, Plateau plateau) {
 
-    Plateau p;
-
-    if(type == "Morpion")
-      p = new Grille(new Morpion());
-    else
-      p = new Grille(new Gomoku());
-
-    Fenetre f = new Fenetre(p);
+    Fenetre f = new Fenetre(plateau);
 
     JComponent component = f.getDessinPlateau();
 
-    Partie partie = new Partie(j1, j2, p, new VisuelGUI(component));
+    Partie partie = new Partie(j1, j2, plateau, new VisuelGUI(component));
 
     MouseClic me = new MouseClic(partie);
     component.addMouseListener(me);
