@@ -21,6 +21,7 @@
 ./sources/gomoku/regles/Gomoku.java
 ./sources/gomoku/regles/Metrique.java
 ./sources/gomoku/regles/Moore.java
+./sources/gomoku/regles/Morpion.java
 ./sources/gomoku/regles/RegleAlignement.java
 ./sources/gomoku/regles/RegleCoup.java
 ./sources/gomoku/regles/Variante.java

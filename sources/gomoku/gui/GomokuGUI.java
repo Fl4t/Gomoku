@@ -10,9 +10,17 @@ import gomoku.jeu.*;
 
 public class GomokuGUI {
 
-  public GomokuGUI(JoueurAbstrait j1, JoueurAbstrait j2) {
-    Plateau p = new Grille(new Gomoku());
+  public GomokuGUI(JoueurAbstrait j1, JoueurAbstrait j2, String type) {
+
+    Plateau p;
+
+    if(type == "Morpion")
+      p = new Grille(new Morpion());
+    else
+      p = new Grille(new Gomoku());
+
     Fenetre f = new Fenetre(p);
+
     JComponent component = f.getDessinPlateau();
 
     Partie partie = new Partie(j1, j2, p, new VisuelGUI(component));
