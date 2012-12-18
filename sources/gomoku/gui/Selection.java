@@ -19,8 +19,8 @@ public class Selection extends JFrame implements ActionListener {
   private JPanel pan3 = new JPanel();
   private JPanel pan4 = new JPanel();
   private JPanel pan5 = new JPanel();
-  
-  
+
+
   // les bouttons
   private JButton boutonIA = new JButton("Jouer contre l'IA");
   private JButton boutonH = new JButton("Jouer contre un ami");
@@ -35,7 +35,7 @@ public class Selection extends JFrame implements ActionListener {
   private JLabel labelG = new JLabel("Mode Graphique :");
   private JLabel labelC = new JLabel("Mode M.Beaufils :");
 
- 
+
 
   // les joueurs humains
   private JoueurAbstrait jh1 = new JoueurHumain(Joueur.NOIR);
@@ -69,7 +69,7 @@ public class Selection extends JFrame implements ActionListener {
   public Selection () {
 
     this.setTitle("Choix du mode de jeu");
-    this.setSize(610, 200);
+    this.setSize(800, 200);
     this.setResizable(false);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLocationRelativeTo(null);
