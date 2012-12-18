@@ -112,6 +112,8 @@ public class Partie {
       this.jNoir.joueUnePierre();
     }
     else {
+      if (c == null)
+       this.visualiser.laPartieEstNulle();
       this.plateau.placer(c, this.jBlanc.couleur());
       this.jBlanc.joueUnePierre();
     }

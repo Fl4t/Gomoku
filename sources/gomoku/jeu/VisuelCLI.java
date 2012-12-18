@@ -13,6 +13,7 @@ public class VisuelCLI implements Visuel {
   */
   public void leJoueurAGagne(String str) {
     System.out.println("félicitation au joueur " + str);
+    System.exit(0);
   }
 
 /** Affiche un message quand la partie est nulle
@@ -20,6 +21,7 @@ public class VisuelCLI implements Visuel {
   */
   public void laPartieEstNulle() {
     System.out.println("Partie nulle!");
+    System.exit(0);
   }
 
 /** Actualise la grille
