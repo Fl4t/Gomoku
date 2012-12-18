@@ -1,7 +1,7 @@
-./sources/gomoku/cli/GomokuCLI.java
+./sources/gomoku/cli/JeuCLI.java
 ./sources/gomoku/gui/DessinPlateau.java
 ./sources/gomoku/gui/Fenetre.java
-./sources/gomoku/gui/GomokuGUI.java
+./sources/gomoku/gui/JeuGUI.java
 ./sources/gomoku/gui/MouseClic.java
 ./sources/gomoku/gui/Selection.java
 ./sources/gomoku/jeu/Alignement.java
