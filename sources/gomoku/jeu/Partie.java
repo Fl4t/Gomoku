@@ -33,6 +33,14 @@ public class Partie {
 
 
   public void jouer(Coordonnees c) {
+    int cpt = 0;
+    for (int x = 0; x < this.plateau.largeur() ; x++)
+      for (int y = 0; y < this.plateau.hauteur() ; y++)
+        if (this.plateau.contenu(new PierreCoordonnees(x, y)) == Joueur.VIDE) {
+          cpt++;
+        }
+    if (cpt == 0)
+      this.visualiser.laPartieEstNulle();
     if (c == null)
       this.CLIouGUI = "CLI";
     else
