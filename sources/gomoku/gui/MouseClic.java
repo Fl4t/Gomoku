@@ -13,6 +13,9 @@ public class MouseClic extends MouseAdapter {
     this.partie = p;
   }
 
+/** Permet de récupérer les coordonnées lorsque
+  * le joueur clique sur le plateau
+  */
   public void mouseClicked(MouseEvent e) {
     // On récupère le plateau de la partie
     Plateau plateau = this.partie.getPlateau();

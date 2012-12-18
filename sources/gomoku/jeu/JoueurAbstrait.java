@@ -29,6 +29,10 @@ public abstract class JoueurAbstrait implements Joueur {
     return this.nbCoups--;
   }
 
+/** Demande les coordonnées au joueur
+  * @param la partie
+  * @return les coordonnées où il va placer la pierre
+  */
   public abstract Coordonnees demanderCoorJoueur(Partie p);
 
   public String couleurIntToString() {

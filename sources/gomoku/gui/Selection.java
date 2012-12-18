@@ -61,11 +61,13 @@ public class Selection extends JFrame implements ActionListener {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLocationRelativeTo(null);
 
+    // Ajout des actions sur les boutons.
     boutonIA.addActionListener(this);
     boutonH.addActionListener(this);
     boutonIAG.addActionListener(this);
     boutonHG.addActionListener(this);
 
+    // On place les labels et boutons dans la fenêtre.
     pan1.add(labelC);
     pan2.add(boutonIA);
     pan2.add(boutonH);

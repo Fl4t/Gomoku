@@ -31,6 +31,7 @@ public class Partie {
     return this.gagnant;
   }
 
+
   public void jouer(Coordonnees c) {
     if (c == null)
       this.CLIouGUI = "CLI";
@@ -55,6 +56,8 @@ public class Partie {
     }
   }
 
+ /** Cette méthode vérifie s'il reste des coups à jouer
+   * @return true ou false */
   public boolean coupAjouer() {
     if (!(this.jNoir.getNbCoups() == 0
           && this.jBlanc.getNbCoups() == 0))
@@ -62,6 +65,9 @@ public class Partie {
     return false;
   }
 
+/** Cette méthode demande les coordonnées
+  *  au joueur qui a la main.
+  * @return une coordonnées */
   public Coordonnees demanderCoor() {
     if (this.aLaMain(Joueur.NOIR))
       return this.jNoir.demanderCoorJoueur(this);
@@ -69,6 +75,11 @@ public class Partie {
       return this.jBlanc.demanderCoorJoueur(this);
   }
 
+/** Permet de savoir si le joueur a la main
+  * @param la couleur du joueur
+  * @return true si la couleur correspond au joueur qui à la main
+  * false sinon.
+   */
   public boolean aLaMain(int couleur) {
     return couleur == this.doisJouer ? true : false;
   }
@@ -107,6 +118,8 @@ public class Partie {
     this.verifierCoupGagnant();
   }
 
+/** Permet de donner la main au joueur suivant
+   */
   public void donnerLaMain() {
     this.doisJouer = this.aLaMain(Joueur.NOIR) ?
       Joueur.BLANC : Joueur.NOIR;
@@ -133,11 +146,18 @@ public class Partie {
     }
   }
 
+/** Permet de savoir si le joueur est une Intelligence
+  * Artificielle.
+  * @return true si oui, false sinon
+  */
   private boolean blancEstUneIA() {
     return this.jBlanc.getClass().getName() ==
       "gomoku.jeu.JoueurCybernetique" ? true : false;
   }
 
+/** Permet de récupérer le plateau
+  * @return le plateau correspondant à la partie.
+   */
   public Plateau getPlateau() {
     return this.plateau;
   }

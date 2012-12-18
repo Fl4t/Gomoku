@@ -9,6 +9,10 @@ public class JoueurCybernetique extends JoueurAbstrait {
     super(c);
   }
 
+/** Demande les coordonnées au joueur
+  * @param la partie
+  * @return les coordonnées où il va placer la pierre
+  */
   public Coordonnees demanderCoorJoueur(Partie partie) {
     Plateau p = partie.getPlateau();
     Variante v = ((Grille)p).getVariante();

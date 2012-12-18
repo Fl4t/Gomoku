@@ -23,6 +23,9 @@ public class DessinPlateau extends JPanel {
     this.hauteur = p.hauteur();
   }      
 
+/** Redéfinition de la méthode paintComponent
+  * pour dessiner le plateau correspondant à la partie
+  */
   public void paintComponent(Graphics g){
     super.paintComponent(g);
 
