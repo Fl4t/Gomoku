@@ -17,6 +17,7 @@ public class VisuelGUI implements Visuel {
   public void leJoueurAGagne(String str) {
     JOptionPane.showMessageDialog(null, "Le joueur " + str +
         " a gagné !" , "Fin", JOptionPane.CLOSED_OPTION,null);
+    System.exit(0);
   }
 
 /** Affiche un message si la partie est nulle
@@ -25,6 +26,7 @@ public class VisuelGUI implements Visuel {
   public void laPartieEstNulle() {
     JOptionPane.showMessageDialog(null, "Partie nulle !" ,
         "Fin", JOptionPane.CLOSED_OPTION,null);
+    System.exit(0);
   }
 
 /** Permet de mettre à jour l'affichage après un coup.
