@@ -20,12 +20,11 @@ public class Selection extends JFrame implements ActionListener {
   private JPanel pan4 = new JPanel();
   private JPanel pan5 = new JPanel();
 
-
   // les bouttons
-  private JButton boutonIA = new JButton("Jouer contre l'IA");
-  private JButton boutonH = new JButton("Jouer contre un ami");
-  private JButton boutonIAG = new JButton("Jouer contre l'IA");
-  private JButton boutonHG = new JButton("Jouer contre un ami");
+  private JButton boutonIA = new JButton("Gomoku contre l'IA");
+  private JButton boutonH = new JButton("Gomoku contre un ami");
+  private JButton boutonIAG = new JButton("Gomoku contre l'IA");
+  private JButton boutonHG = new JButton("Gomoku contre un ami");
   private JButton boutonIAM = new JButton("Morpion contre l'IA");
   private JButton boutonHM = new JButton("Morpion contre un ami");
   private JButton boutonIAGM = new JButton("Morpion contre l'IA");
@@ -34,8 +33,6 @@ public class Selection extends JFrame implements ActionListener {
   // les labels
   private JLabel labelG = new JLabel("Mode Graphique :");
   private JLabel labelC = new JLabel("Mode M.Beaufils :");
-
-
 
   // les joueurs humains
   private JoueurAbstrait jh1 = new JoueurHumain(Joueur.NOIR);
